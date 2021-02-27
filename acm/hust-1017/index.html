@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/social-share.js/1.0.9/css/share.min.css" rel="stylesheet" type="text/css" />
+
+<link href="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/css/main.css?v=0.0.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=0.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/stxw.jpg?v=0.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=0.0.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="acm,舞蹈链,hust," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="精确覆盖问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HUST-1017 Exact cover">
+<meta property="og:url" content="http://stxw.ml/acm/hust-1017/index.html">
+<meta property="og:site_name" content="stxw">
+<meta property="og:description" content="精确覆盖问题">
+<meta property="article:published_time" content="2020-03-10T12:45:59.000Z">
+<meta property="article:modified_time" content="2021-02-27T13:07:15.397Z">
+<meta property="article:author" content="stxw">
+<meta property="article:tag" content="acm">
+<meta property="article:tag" content="舞蹈链">
+<meta property="article:tag" content="hust">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '0.0.4',
+    sidebar: {"position":"right","display":"always","offset":52,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    since: '6/1/2020 00:00:00',
+    onlineAPI: '',
+    site: {
+      title: 'stxw',
+      subtitle: '',
+      author: 'stxw'
+    },
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    leancloud: {
+      enable: false,
+      appID: '',
+      appKey: ''
+    },
+    favicon: {
+      visibilitychange: true,
+      narmal: '/images/stxw.jpg',
+      hidden: '/images/failure.ico',
+      show_text: '(/≧▽≦/)欢迎回来！',
+      hide_text: '(T﹏T)不要走嘛...'
+    },
+	load_to_main: true,
+	img_mirror: {
+      enable: true,
+      prefix: 'https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/'
+	}
+  };
+</script>
+
+
+
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="canonical" href="http://stxw.ml/acm/hust-1017/"/>
+
+
+
+<script type="text/javascript">
+	/* 自动跳转到主要内容部分（主页除外） */
+	const stxw = {
+		load_to_main: function () {
+			var pathname = window.location.pathname;
+			var pre_pathname = sessionStorage.getItem("pre_pathname");
+			var cur_st = $(document).scrollTop();
+			if (pathname != "/" && cur_st < 10 && pathname != pre_pathname) {
+				$('html, body').animate({
+					scrollTop: $("#main").offset().top - 50
+				}, 500);
+			}
+			sessionStorage.setItem("pre_pathname", pathname);
+		},
+
+		use_img_mirror: function(prefix) {
+			var imgs = document.getElementsByTagName("img");
+			for(var i = 0; i < imgs.length; i++) {
+				img_src = imgs[i].src;
+				ind = img_src.indexOf("images");
+				if(ind >= 0) {
+					imgs[i].src = prefix + img_src.substring(ind);
+				}
+			}
+		}
+	}
+
+	$(function () {
+		if (window.CONFIG.load_to_main) {
+			stxw.load_to_main();
+		}
+		if (window.CONFIG.img_mirror.enable) {
+			stxw.use_img_mirror(window.CONFIG.img_mirror.prefix);
+		}
+	})
+</script>
+
+
+
+  <title>HUST-1017 Exact cover | stxw</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="stxw" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-后宫">
+          <a href="/friends/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-mars"></i> <br />
+            
+            后宫
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-留言板">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pencil"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-rocket"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+
+	  <!--
+      <li class="menu-item search">
+          <form class="search-form">
+            <input name="keyword" type="text" class="search-input" placeholder="站内搜索">
+            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+          </form>
+      </li>
+      <li class="menu-item online"><span id="online-count">?</span>人在线</li>
+	  -->
+	 
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<div class="site-brand-wrapper" >
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <div class="brand">
+        <span class="logo-line-before"><i></i></span>
+        <div class="site-title">
+			<div class="site-master" itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<img class="site-master-avatar" itemprop="image" src="/images/stxw.jpg" alt="stxw" />
+			</div>
+          <div id="animate" class="animate">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+          <div id="guide" class="guide">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+        </div>
+        <span class="logo-line-after"><i></i></span>
+      </div>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<img class="background-image" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/backgound.jpeg" />
+
+
+	<a href="https://github.com/stxw" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub">
+	<svg width="100" height="100" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0; z-index: 4;" aria-hidden="true">
+		<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+		<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+		<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+	</svg>
+</a>
+<style>
+.github-corner:hover .octo-arm{
+	animation:octocat-wave 560ms ease-in-out
+}
+@keyframes octocat-wave{
+	0%,100%{transform:rotate(0)}
+	20%,60%{transform:rotate(-25deg)}
+	40%,80%{transform:rotate(10deg)}
+}
+@media (max-width:500px){
+	.github-corner:hover .octo-arm{
+		animation:none
+	}
+	.github-corner .octo-arm{
+		animation:octocat-wave 560ms ease-in-out
+	}
+}
+</style>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date">
+			<div class="post-month">03月</div>
+			<div class="post-day">10</div>
+	</div>
+  
+  <div class="post-badge">
+    
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/acm/" itemprop="url" rel="index">
+          <span itemprop="name">acm</span>
+        </a>
+      </span>
+    
+  </div>
+  
+
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://stxw.ml/acm/hust-1017/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stxw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/stxw.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stxw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <p class="post-title" itemprop="name headline">HUST-1017 Exact cover</p>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-10T20:45:59+08:00">
+                2020-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">•</span>
+            <span class="page-pv">本文总阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>精确覆盖问题</p>
+<a id="more"></a>
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>&emsp;&emsp;<a href="http://www.hustoj.org/problem/1017" target="_blank" rel="noopener">http://www.hustoj.org/problem/1017</a></p>
+<h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>&emsp;&emsp;给出一个大小为n×m，只包含0和1的矩阵，需要选出矩阵中的某些行，使得这些行组成的子矩阵在每一列上有且只有一个1。</p>
+<h1 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h1><p>&emsp;&emsp;这题是舞蹈链的模板题，标准的精确覆盖问题。第一次接触舞蹈链算法，参考大佬的博客才看懂的，关于舞蹈链算法，参考自<a href="https://www.cnblogs.com/grenet/p/3145800.html" target="_blank" rel="noopener">https://www.cnblogs.com/grenet/p/3145800.html</a>，大佬解释的非常详细了，在此感谢<a href="https://www.cnblogs.com/grenet/" target="_blank" rel="noopener">万仓一黍</a>大佬的解释，我比较懒，就不复述了。代码参考了<a href="https://www.cnblogs.com/ZShogg/p/3288980.html" target="_blank" rel="noopener">https://www.cnblogs.com/ZShogg/p/3288980.html</a>，也感谢<a href="https://www.cnblogs.com/ZShogg/" target="_blank" rel="noopener">Hogg</a>大佬的代码。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* http://www.hustoj.org/problem/1017 */</span></span><br><span class="line"><span class="comment">/* 测试样例通过了，因为oj的问题（HUST OJ不支持特判），无法提交 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_N = <span class="number">1000</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_NODE = MAX_N * <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> u, d, l, r;</span><br><span class="line">	<span class="keyword">int</span> row, col;</span><br><span class="line">&#125; node;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, node_size;</span><br><span class="line">node nd[MAX_NODE];</span><br><span class="line"><span class="keyword">int</span> row_head[MAX_N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 初始化每一列的头节点 */</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt;= m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		nd[i].u = i;</span><br><span class="line">		nd[i].d = i;</span><br><span class="line">		nd[i].l = i - <span class="number">1</span>;</span><br><span class="line">		nd[i].r = i + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	nd[<span class="number">0</span>].l = m;</span><br><span class="line">	nd[m].r = <span class="number">0</span>;</span><br><span class="line">	node_size = m + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 初始化每一行的行指针 */</span></span><br><span class="line">	<span class="built_in">memset</span>(row_head, <span class="number">-1</span>, <span class="keyword">sizeof</span>(row_head));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_node</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">/* nd[node_size]为新添加的节点 */</span></span><br><span class="line">	nd[node_size].row = row;</span><br><span class="line">	nd[node_size].col = col;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 将新添加的节点与其所在的列连接 */</span></span><br><span class="line">	nd[node_size].u = col;</span><br><span class="line">	nd[node_size].d = nd[col].d;</span><br><span class="line">	nd[nd[col].d].u = node_size;</span><br><span class="line">	nd[col].d = node_size;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 将新添加的节点与其所在的行连接 */</span></span><br><span class="line">	<span class="keyword">if</span>(row_head[row] == <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		row_head[row] = node_size;</span><br><span class="line">		nd[node_size].l = node_size;</span><br><span class="line">		nd[node_size].r = node_size;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> row_first = row_head[row];</span><br><span class="line">		nd[node_size].r = row_first;</span><br><span class="line">		nd[node_size].l = nd[row_first].l;</span><br><span class="line">		nd[nd[row_first].l].r = node_size;</span><br><span class="line">		nd[row_first].l = node_size;</span><br><span class="line">	&#125;</span><br><span class="line">	node_size++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> col)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 将第col列从十字链表里移除 */</span></span><br><span class="line">	nd[nd[col].l].r = nd[col].r;</span><br><span class="line">	nd[nd[col].r].l = nd[col].l;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 将与第col列里节点有关的行移除 */</span></span><br><span class="line">	<span class="keyword">for</span>(i = nd[col].d; i != col; i = nd[i].d)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(j = nd[i].r; j != i; j = nd[j].r)</span><br><span class="line">		&#123;</span><br><span class="line">			nd[nd[j].u].d = nd[j].d;</span><br><span class="line">			nd[nd[j].d].u = nd[j].u;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resume</span><span class="params">(<span class="keyword">int</span> col)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 将第col列从十字链表里恢复 */</span></span><br><span class="line">	nd[nd[col].l].r = col;</span><br><span class="line">	nd[nd[col].r].l = col;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 将与第col列里节点有关的行恢复 */</span></span><br><span class="line">	<span class="keyword">for</span>(i = nd[col].d; i != col; i = nd[i].d)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(j = nd[i].r; j != i; j = nd[j].r)</span><br><span class="line">		&#123;</span><br><span class="line">			nd[nd[j].u].d = j;</span><br><span class="line">			nd[nd[j].d].u = j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> ans[], <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j, res, select_col;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 当前十字链表没有列 */</span></span><br><span class="line">	<span class="keyword">if</span>(nd[<span class="number">0</span>].r == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> len;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i = nd[<span class="number">0</span>].r; i != <span class="number">0</span>; i = nd[i].r)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(nd[i].d == i)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	select_col = nd[<span class="number">0</span>].r;</span><br><span class="line">	remove(select_col);</span><br><span class="line">	<span class="keyword">for</span>(i = nd[select_col].d; i != select_col; i = nd[i].d)</span><br><span class="line">	&#123;</span><br><span class="line">		ans[len] = nd[i].row;</span><br><span class="line">		<span class="keyword">for</span>(j = nd[i].r; j != i; j = nd[j].r)</span><br><span class="line">		&#123;</span><br><span class="line">			remove(nd[j].col);</span><br><span class="line">		&#125;</span><br><span class="line">		res = dfs(ans, len + <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">if</span>(res &gt;= <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> res;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(j = nd[i].l; j != i; j = nd[j].l)</span><br><span class="line">		&#123;</span><br><span class="line">			resume(nd[j].col);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	resume(select_col);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j, k, c, len;</span><br><span class="line">	<span class="keyword">int</span> ans[MAX_N];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;n, &amp;m) != EOF)</span><br><span class="line">	&#123;</span><br><span class="line">		init();</span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;c);</span><br><span class="line">			<span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; c; j++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);</span><br><span class="line">				add_node(i, k);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		len = dfs(ans, <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span>(len &lt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, len);</span><br><span class="line">			<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">" %d"</span>, ans[i]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">6 7</span></span><br><span class="line"><span class="comment">3 1 4 7</span></span><br><span class="line"><span class="comment">2 1 4</span></span><br><span class="line"><span class="comment">3 4 5 7</span></span><br><span class="line"><span class="comment">3 3 5 6</span></span><br><span class="line"><span class="comment">4 2 3 6 7</span></span><br><span class="line"><span class="comment">2 2 7</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+	  <hr>
+      <div class="post-share">分享到：</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/acm/" rel="tag"># acm</a>
+          
+            <a href="/tags/%E8%88%9E%E8%B9%88%E9%93%BE/" rel="tag"># 舞蹈链</a>
+          
+            <a href="/tags/hust/" rel="tag"># hust</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/acm/hdu-2102/" rel="next" title="HDU-2102 A计划">
+                <i class="fa fa-chevron-left"></i> HDU-2102 A计划
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/acm/zoj-1017/" rel="prev" title="ZOJ-1017 Treasure Map">
+                ZOJ-1017 Treasure Map <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: '6iCAxfaoBsA1LaiU36OQQVya-MdYXbMMI',
+        appKey: 'gVPQRrCwc64fycoMHuq9jfgG',
+        placeholder: '说点什么吧！ (*´∇｀*)',
+        avatar: 'mp',
+        pageSize: '' || 10,
+		meta: ['nick', 'mail', 'link'],
+
+		// 设置Bilibili表情包地址
+		emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+		// 表情title和图片映射
+		emojiMaps: {
+			"tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+			"tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+			"tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+			"tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+			"tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+			"tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+			"tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+			"tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+			"tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+			"tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+			"tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+			"tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+			"tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+			"tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+			"tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+			"tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+			"tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+			"tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+			"tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+			"tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+			"tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+			// ... 更多表情
+		},
+    });
+  </script>
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://api.ixiaowai.cn/mcapi/mcapi.php"
+                alt="stxw" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/stxw" target="_blank" title="GitHub" data-balloon="GitHub" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://wpa.qq.com/msgrd?v=3&uin=1845812298&site=qq&menu=yes" target="_blank" title="QQ" data-balloon="QQ" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-qq"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+            
+
+          </nav>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题意"><span class="nav-number">2.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目解析"><span class="nav-number">3.</span> <span class="nav-text">题目解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <!--<div class="footer-image"></div>-->
+      <div class="footer-inner">
+        <p>
+小破站在各种灾难中苟活了
+	<span id="since"></span>
+	<span class="my-face">o(╥﹏╥)o</span>
+	<a href="/sitemap.xml" target="_blank">RSS</a>
+</p>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数 <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量 <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+	
+		<div class="waifu">
+	<div class="waifu-tips"></div>
+	<canvas id="live2d" height="380" style="width:300px;" ></canvas>
+	<div class="waifu-tool">
+		<i class="fa fa-commenting" ></i>
+		<i class="fa fa-camera" ></i>
+		<i class="fa fa-chevron-down" ></i>
+	</div>
+</div>
+<div class="waifu-show">
+	<i class= "fa fa-chevron-up"></i>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/live2d.js"></script>
+<script>
+	loadlive2d('live2d', "https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/live2d_model/nepnep/index.json");
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/waifu.js"></script>
+
+	
+
+    
+
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/sagiri.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/highlight_tool.js"></script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('2');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

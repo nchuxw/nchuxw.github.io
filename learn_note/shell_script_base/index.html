@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/social-share.js/1.0.9/css/share.min.css" rel="stylesheet" type="text/css" />
+
+<link href="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/css/main.css?v=0.0.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=0.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/stxw.jpg?v=0.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=0.0.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,shell," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介shell&amp;emsp;&amp;emsp;shell是操作系统内核之外的指令解析器，是一个程序，同时是一种命令语言和程序设计语言。是处于操作人员和操作系统接口之间的一层封装，用于方便操作人员使用计算机。用途：  用于计算机的启动、常用程序的运行等脚本。 作为配置文件。 处理文本文件。  &amp;emsp;&amp;emsp;常用的shell：sh、bash。 shell脚本&amp;emsp;&amp;emsp;将多行命令封装进一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell脚本基础知识">
+<meta property="og:url" content="http://stxw.ml/learn_note/shell_script_base/index.html">
+<meta property="og:site_name" content="stxw">
+<meta property="og:description" content="简介shell&amp;emsp;&amp;emsp;shell是操作系统内核之外的指令解析器，是一个程序，同时是一种命令语言和程序设计语言。是处于操作人员和操作系统接口之间的一层封装，用于方便操作人员使用计算机。用途：  用于计算机的启动、常用程序的运行等脚本。 作为配置文件。 处理文本文件。  &amp;emsp;&amp;emsp;常用的shell：sh、bash。 shell脚本&amp;emsp;&amp;emsp;将多行命令封装进一">
+<meta property="article:published_time" content="2020-05-10T14:30:26.000Z">
+<meta property="article:modified_time" content="2021-02-27T13:07:15.397Z">
+<meta property="article:author" content="stxw">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '0.0.4',
+    sidebar: {"position":"right","display":"always","offset":52,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    since: '6/1/2020 00:00:00',
+    onlineAPI: '',
+    site: {
+      title: 'stxw',
+      subtitle: '',
+      author: 'stxw'
+    },
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    leancloud: {
+      enable: false,
+      appID: '',
+      appKey: ''
+    },
+    favicon: {
+      visibilitychange: true,
+      narmal: '/images/stxw.jpg',
+      hidden: '/images/failure.ico',
+      show_text: '(/≧▽≦/)欢迎回来！',
+      hide_text: '(T﹏T)不要走嘛...'
+    },
+	load_to_main: true,
+	img_mirror: {
+      enable: true,
+      prefix: 'https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/'
+	}
+  };
+</script>
+
+
+
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="canonical" href="http://stxw.ml/learn_note/shell_script_base/"/>
+
+
+
+<script type="text/javascript">
+	/* 自动跳转到主要内容部分（主页除外） */
+	const stxw = {
+		load_to_main: function () {
+			var pathname = window.location.pathname;
+			var pre_pathname = sessionStorage.getItem("pre_pathname");
+			var cur_st = $(document).scrollTop();
+			if (pathname != "/" && cur_st < 10 && pathname != pre_pathname) {
+				$('html, body').animate({
+					scrollTop: $("#main").offset().top - 50
+				}, 500);
+			}
+			sessionStorage.setItem("pre_pathname", pathname);
+		},
+
+		use_img_mirror: function(prefix) {
+			var imgs = document.getElementsByTagName("img");
+			for(var i = 0; i < imgs.length; i++) {
+				img_src = imgs[i].src;
+				ind = img_src.indexOf("images");
+				if(ind >= 0) {
+					imgs[i].src = prefix + img_src.substring(ind);
+				}
+			}
+		}
+	}
+
+	$(function () {
+		if (window.CONFIG.load_to_main) {
+			stxw.load_to_main();
+		}
+		if (window.CONFIG.img_mirror.enable) {
+			stxw.use_img_mirror(window.CONFIG.img_mirror.prefix);
+		}
+	})
+</script>
+
+
+
+  <title>shell脚本基础知识 | stxw</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="stxw" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-后宫">
+          <a href="/friends/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-mars"></i> <br />
+            
+            后宫
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-留言板">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pencil"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-rocket"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+
+	  <!--
+      <li class="menu-item search">
+          <form class="search-form">
+            <input name="keyword" type="text" class="search-input" placeholder="站内搜索">
+            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+          </form>
+      </li>
+      <li class="menu-item online"><span id="online-count">?</span>人在线</li>
+	  -->
+	 
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<div class="site-brand-wrapper" >
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <div class="brand">
+        <span class="logo-line-before"><i></i></span>
+        <div class="site-title">
+			<div class="site-master" itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<img class="site-master-avatar" itemprop="image" src="/images/stxw.jpg" alt="stxw" />
+			</div>
+          <div id="animate" class="animate">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+          <div id="guide" class="guide">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+        </div>
+        <span class="logo-line-after"><i></i></span>
+      </div>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<img class="background-image" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/backgound.jpeg" />
+
+
+	<a href="https://github.com/stxw" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub">
+	<svg width="100" height="100" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0; z-index: 4;" aria-hidden="true">
+		<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+		<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+		<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+	</svg>
+</a>
+<style>
+.github-corner:hover .octo-arm{
+	animation:octocat-wave 560ms ease-in-out
+}
+@keyframes octocat-wave{
+	0%,100%{transform:rotate(0)}
+	20%,60%{transform:rotate(-25deg)}
+	40%,80%{transform:rotate(10deg)}
+}
+@media (max-width:500px){
+	.github-corner:hover .octo-arm{
+		animation:none
+	}
+	.github-corner .octo-arm{
+		animation:octocat-wave 560ms ease-in-out
+	}
+}
+</style>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date">
+			<div class="post-month">05月</div>
+			<div class="post-day">10</div>
+	</div>
+  
+  <div class="post-badge">
+    
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+          <span itemprop="name">学习笔记</span>
+        </a>
+      </span>
+    
+  </div>
+  
+
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://stxw.ml/learn_note/shell_script_base/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stxw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/stxw.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stxw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <p class="post-title" itemprop="name headline">shell脚本基础知识</p>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-10T22:30:26+08:00">
+                2020-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">•</span>
+            <span class="page-pv">本文总阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p>&emsp;&emsp;shell是操作系统内核之外的指令解析器，是一个程序，同时是一种命令语言和程序设计语言。是处于操作人员和操作系统接口之间的一层封装，用于方便操作人员使用计算机。<br>用途：</p>
+<ol>
+<li>用于计算机的启动、常用程序的运行等脚本。</li>
+<li>作为配置文件。</li>
+<li>处理文本文件。</li>
+</ol>
+<p>&emsp;&emsp;常用的shell：sh、bash。</p>
+<h2 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h2><p>&emsp;&emsp;将多行命令封装进一个文本文件里，执行一个shell脚本即可执行多个shell命令。<br>&emsp;&emsp;shell的第一行用于指定脚本解释器的路径，方法是<code>#!解释器的路径</code>，比如指定为/bin/sh的代码如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="执行方式"><a href="#执行方式" class="headerlink" title="执行方式"></a>执行方式</h1><p>&emsp;&emsp;shell有两种执行方式，第一种是<code>脚本解释器 shell文件</code>，第二种是<code>./shell文件</code>。使用第二种方式时，要确保shell文件有可执行权限。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash ./test.sh  # 第一种方式</span><br><span class="line">./test.sh  # 第二种方式</span><br></pre></td></tr></table></figure>
+
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><h2 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h2><p>&emsp;&emsp;shell脚本里用#来表示单行注释，如果使用第一种方式执行shell，第一行的<code>#!</code>也是注释；如果用第二种方式执行shell，第一行的<code>#!</code>则不是注释。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这是一个注释</span></span><br><span class="line">ls -l # 这也是一个注释</span><br></pre></td></tr></table></figure>
+<h2 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h2><ol>
+<li>方法一</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">: '</span><br><span class="line">echo "这是一个注释"</span><br><span class="line">echo "这也是注释"</span><br><span class="line">echo "这还是注释"</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：注释的开头的<code>:</code>和<code>&#39;</code>之间有一个空格，不然会报错。</p>
+<ol start="2">
+<li>方法二</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:&lt;&lt; 字符</span><br><span class="line">echo "这是一个注释"</span><br><span class="line">echo "这也是注释"</span><br><span class="line">echo "这还是注释"</span><br><span class="line">字符</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这里的字符上下两个要相同，否则注释无法结束。</p>
+<h1 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h1><p>&emsp;&emsp;给命令取其他名字，用来简化带参数的命令，比如使用<code>alias ll=&#39;ls -l&#39;</code>命令来给<code>ls -l</code>取一个<code>ll</code>的别名，以后就可以用<code>ll</code>来代替<code>ls -l</code>了。<br>&emsp;&emsp;如果是在终端输入<code>alias</code>命令后取的别名，在终端退出后别名就会失效，下次开启终端后，需要再执行一次<code>alias</code>命令才能使用别名。如果想要在每次开启终端后都能使用别名，需要把<code>alias</code>命令写入~/.bashrc文件里。</p>
+<h1 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h1><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>&emsp;&emsp;echo命令用于将字符输出到标准输出，语法：<code>echo [可选项] 要输出的字符串...</code>，可选项有两个：</p>
+<ul>
+<li>-n ：输出后不换行，默认会换一行。</li>
+<li>-e ：输出前解析转义字符（类似<code>\n</code>之类的），默认不解析。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ echo 'abc!'   # 输出后会换一行</span><br><span class="line">abc!</span><br><span class="line">xxx@xxx:~$ echo -n 'abc!'   # 输出后不换行</span><br><span class="line">abc!xxx@xxx:~$ </span><br><span class="line"></span><br><span class="line">xxx@xxx:~$ echo 'abc\nabc'  # 不解析转义字符，将\n当做普通字符串输出</span><br><span class="line">abc\nabc</span><br><span class="line">xxx@xxx:~$ echo -e 'abc\nabc'  # 解析转义字符，将\n当做换行符输出</span><br><span class="line">abc</span><br><span class="line">abc</span><br><span class="line">xxx@xxx:~$</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;cat命令用于将文件的内容输出到标准输出，语法：<code>cat 要输出的文件</code>。</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>&emsp;&emsp;read命令会从标准输入中读取字符串，保存到变量中，语法：<code>read 保存输入的变量</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ read VAR</span><br><span class="line">abc   # 输入的字符串</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR&#125;</span><br><span class="line">abc</span><br><span class="line">xxx@xxx:~$</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;也可以用read命令将读取的字符串保存到多个变量中，语法：<code>read 变量1 变量2 ...</code>。read命令读取到空格就换一个变量来保存字符串，读取到回车停止读取。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ read VAR1 VAR2</span><br><span class="line">abc 123  # 输入的字符串</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR1&#125;</span><br><span class="line">abc</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR2&#125;</span><br><span class="line">123</span><br><span class="line">xxx@xxx:~$</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;用read将输入保存到变量时，如果想将空格当做普通字符保存到变量中，可以在空格前加一个反斜杠来转义。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ read VAR1 VAR2</span><br><span class="line">abc\ 123 xyz       </span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR1&#125;</span><br><span class="line">abc 123</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR2&#125;</span><br><span class="line">xyz</span><br><span class="line">xxx@xxx:~$</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;当用来保存输入的变量是最后一个变量的时候，即使不加反斜杠来转义，也会把空格当做普通字符来处理。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ read VAR1 VAR2</span><br><span class="line">abc 123 xyz</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR1&#125;</span><br><span class="line">abc</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR2&#125;</span><br><span class="line">123 xyz  # 变量VAR2是最后一个保存输入的变量</span><br><span class="line">xxx@xxx:~$   # 所以“123”和“xyz”之间的空格，即使不加反斜杠，也当做普通字符处理</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;如果后面的变量还没有用到，read就读取到了换行，那么，没用到的变量会赋值为空字符串。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ VAR1=xyz</span><br><span class="line">xxx@xxx:~$ VAR2=123</span><br><span class="line">xxx@xxx:~$ read VAR1 VAR2</span><br><span class="line">abc</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR1&#125;</span><br><span class="line">abc</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR2&#125; # 变量VAR2原来是123，现在是空字符串。</span><br><span class="line"></span><br><span class="line">xxx@xxx:~$</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="文件重定向"><a href="#文件重定向" class="headerlink" title="文件重定向"></a>文件重定向</h2><p>&emsp;&emsp;一个进程启动时，默认会打开3个文件描述符。</p>
+<ul>
+<li>0 标准输入　STDIN_FILENO</li>
+<li>1 标准输出　STDOUT_FILENO</li>
+<li>2 标准错误　STDERR_FILENO</li>
+</ul>
+<p>&emsp;&emsp;一般在终端运行的命令会将当前终端作为标准输入、标准输出和标准错误，如果想用一个文件去替换终端，作为该命令的标准输入、标准输出或者标准错误，则需要用到输入输出重定向。输入输出重定向的语法如下：</p>
+<ul>
+<li><code>commad 0&lt;file</code> ：将file文件作为commad命令的标准输入，0可以省略。</li>
+<li><code>commad 1&gt;file</code> ：将commad命令的标准输出重定向到file文件，会覆盖file文件原来的内容，用<code>&gt;&gt;</code>替换<code>&gt;</code>就不会覆盖，会将标准输出追加到file文件里。1也可以省略，效果是一样的。</li>
+<li><code>commad 2&gt;file</code> ：将commad命令的标准错误重定向到file文件，覆盖写入，用<code>&gt;&gt;</code>表示追加，这里2不可以省略。</li>
+<li><code>commad 1&gt;file 2&gt;&amp;1</code> ：将commad命令的标准输出和标准错误都重定向到file文件，会覆盖file文件原来的内容，用<code>&gt;&gt;</code>表示追加，前面的1可以省略。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./a.out &lt;in.txt    # 将in.txt文件作为./a.out的输入</span><br><span class="line">./a.out &gt;out.txt   # 将./a.out的标准输出重定向到out.txt文件中，覆盖写入</span><br><span class="line">./a.out &gt;&gt;out.txt   # 将./a.out的标准输出重定向到out.txt文件中，追加写入</span><br><span class="line">./a.out 2&gt;out.txt   # 将./a.out的标准错误重定向到out.txt文件中，覆盖写入</span><br></pre></td></tr></table></figure>
+
+<h1 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h1><p>&emsp;&emsp;用<code>|</code>表示，即将前一条命令的执行结果，利用管道传给下一条命令，作为下一条命令的输入，比如查看test.cpp文件里所有包含<code>printf</code>的行可以使用以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat test.cpp | grep <span class="string">'printf'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>&emsp;&emsp;变量是一段内存名字。shell里只有字符串和整数两种类型的变量。shell变量常用大写英文字符表示。</p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>&emsp;&emsp;shell变量可以用<code>declare</code>来声明。设定属性的选项：</p>
+<ul>
+<li>-a&emsp;声明下标数组 (如果支持)</li>
+<li>-A&emsp;声明关联数组 (如果支持)</li>
+<li>-i&emsp;声明整型变量</li>
+<li>-r&emsp;声明只读变量</li>
+<li>-n&emsp;声明指向一个以其值为名称的变量的引用</li>
+<li>-x&emsp;声明一个变量，并将变量导出，有关导出的内容会在下文的<a href="#环境变量">环境变量</a>里解释。</li>
+<li>-t&emsp;声明带有`trace’(追踪)属性的变量</li>
+<li>-l&emsp;将变量在赋值时转为小写</li>
+<li>-u&emsp;将变量在赋值时转为大写</li>
+</ul>
+<p>&emsp;&emsp;如果在声明变量时，不指定任何属性，则默认为声明一个字符串类型的变量。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">声明一个下标数组</span></span><br><span class="line">declare -a MY_ARRAY</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">声明一个整型变量</span></span><br><span class="line">declare -i MY_INT</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">声明一个只读变量，并将其初始化为<span class="string">'123'</span></span></span><br><span class="line">declare -r MY_READ_ONLY='123'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">声明一个变量，并将变量导出</span></span><br><span class="line">declare -x MY_EXPORT</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">声明一个字符串变量</span></span><br><span class="line">declare MY_STRING</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;其实，字符串类型的变量不用<code>declare</code>声明也可以赋值或者使用，相当于一个空字符串。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ echo "MY_VAR=$&#123;MY_VAR&#125;;" #在没有用`declare`声明时，使用'MY_VAR'变量</span><br><span class="line">MY_VAR=;</span><br><span class="line">xxx@xxx:~$ MY_VAR=123 #在没有用`declare`声明时，给'MY_VAR'变量赋值</span><br><span class="line">xxx@xxx:~$ echo "MY_VAR=$&#123;MY_VAR&#125;;"</span><br><span class="line">MY_VAR=123;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>语法：<code>$变量名</code>或<code>${变量名}</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo $VAR</span><br><span class="line">echo $&#123;VAR&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;推荐使用加大括号的方式，可以增强代码的可读性。</p>
+<h2 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h2><p>语法：<code>变量名=给变量赋的值</code><br>&emsp;&emsp;赋值和初始化时等号两边不要加空格。<br>&emsp;&emsp;只读变量初始化后不能再赋值了。</p>
+<h2 id="释放"><a href="#释放" class="headerlink" title="释放"></a>释放</h2><p>语法：<code>unset 变量名</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ VAR=123</span><br><span class="line">xxx@xxx:~$ echo "VAR=$&#123;VAR&#125;;"</span><br><span class="line">VAR=123;</span><br><span class="line">xxx@xxx:~$ unset VAR</span><br><span class="line">xxx@xxx:~$ echo "VAR=$&#123;VAR&#125;;"</span><br><span class="line">VAR=;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;变量VAR在释放之前的值是123，在释放之后是一个空字符串。</p>
+<h2 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h2><p>&emsp;&emsp;局部变量(local variable)是用户自定义的变量，<code>declace</code>不加<code>-x</code>声明的变量都是局部变量。局部变量只在当前shell进程中有效，其父shell进程和其创建的子shell进程都无法使用。</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>&emsp;&emsp;环境变量(global variable)也叫全局变量。与局部变量不同，当前shell进程在创建子shell进程时，会将环境变量复制给子shell进程，使其成为子进程的环境变量，而当前shell进程的局部变量不会复制。<br>&emsp;&emsp;可以用<code>export</code>将局部变量导出为环境变量，语法：<code>export 要导出的局部变量名</code>。<br>&emsp;&emsp;下面，用两个例子来说明环境变量和局部变量的区别。假设当前目录下有一个test.sh脚本，里面只有一条<code>echo</code>命令，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "VAR=$&#123;VAR&#125;;"</span><br></pre></td></tr></table></figure>
+<p><strong>第一个例子</strong><br>&emsp;&emsp;首先在终端中声明一个名称为VAR的局部变量，然后用bash执行test.sh脚本，结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ declare VAR='123'</span><br><span class="line">xxx@xxx:~$ bash ./test.sh</span><br><span class="line">VAR=;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;在这个例子中，当前终端可以当做一个shell进程，执行<code>bash ./test.sh</code>命令会创建一个子shell进程，然后用创建的子shell进程去解析test.sh里的命令。因为VAR是一个局部变量，所以在创建子shell进程时，不会将VAR变量复制给子shell进程，所以子shell进程执行test.sh后输出的VAR是一个空字符串。</p>
+<p><strong>第二个例子</strong><br>&emsp;&emsp;首先在终端中声明一个名称为VAR的局部变量，先将VAR用<code>export</code>导出为环境变量，然后再用bash执行test.sh脚本，结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ declare VAR='123'</span><br><span class="line">xxx@xxx:~$ export VAR</span><br><span class="line">xxx@xxx:~$ bash ./test.sh </span><br><span class="line">VAR=123;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;与第一个例子不同的地方是VAR被导出成了环境变量，当前终端在创建子shell进程的时候会将VAR复制，成为子shell进程的环境变量，所以输出的VAR是字符串’123’。</p>
+<hr>
+<p>&emsp;&emsp;可以用<code>env</code>、<code>export</code>、<code>set</code>命令来查看当前shell进程的环境变量。<br>&emsp;&emsp;常用的环境变量：</p>
+<ul>
+<li><strong>HOME</strong>：home目录路径</li>
+<li><strong>PWD</strong>：当前目录路径</li>
+<li><strong>LOGNAME</strong>：当前用户用户名</li>
+<li><strong>PATH</strong>：shell命令的存放路径，每个路径用引号分隔，用于shell寻找命令。</li>
+</ul>
+<h2 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h2><ul>
+<li><strong>$0</strong>：用于保存的是当前运行的可执行文件的名字。</li>
+<li><strong>$1~9</strong>：用于保存给shell脚本或者shell脚本里的函数传的参数，一共有9个。</li>
+<li><strong>$#</strong>：用于保存传的参数个数，$0不在计数范围内。</li>
+<li><strong>$*</strong>：以单个字符串的形式保存传的参数，即$1~9，不包括$0。</li>
+<li><strong>$@</strong>：以字符串数组的形式保存传的参数，不包括$0。</li>
+<li><strong>$?</strong>：用于保存上一条命令或者函数的返回值，值为0表示正常退出。</li>
+<li><strong>$$</strong>：当前shell进程的PID。</li>
+<li><strong>$!</strong>：用于保存上一个放到后台运行的进程的PID，注意，不是前台进程。</li>
+<li><strong>$-</strong>：显示shell使用的当前选项，与set命令功能相同。(这个没弄懂)</li>
+</ul>
+<h1 id="后台切换"><a href="#后台切换" class="headerlink" title="后台切换"></a>后台切换</h1><p>&emsp;&emsp;在命令后面加一个<code>&amp;</code>可以将该命令切换到后台工作，这样不用等待该命令结束就可以执行下一条命令了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;a.out &amp;</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;上面这个例子，假设<code>./a.out</code>需要执行10秒，如果不加<code>&amp;</code>，则<code>ls -l</code>需要等10秒后，也就是<code>./a.out</code>执行结束后才能运行，加了<code>&amp;</code>就不需要等待<code>./a.out</code>结束就能运行<code>ls -l</code>了。<br>&emsp;&emsp;使用这种切换到后台的进程，在终端退出后就会结束，如果想在退出终端后，后台进程任然继续运行，需要用到<code>nohup</code>命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup .&#x2F;a.out &amp;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;使用<code>nohup</code>命令会将切换到后台的进程的输出写入到当前目录的nohup.out文件里。</p>
+<h1 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h1><h2 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h2><p>&emsp;&emsp;双引号用来使shell将空格、制表符和其他大多数特殊字符当做普通字符来处理。举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch aaa bbb</span><br><span class="line">touch "aaa bbb"</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;没加双引号时，<code>aaa</code>和<code>bbb</code>之间的空格表示命令参数分隔符，<code>touch</code>命令会创建两个文件“aaa”和“bbb”。<br>&emsp;&emsp;加了双引号时，<code>aaa</code>和<code>bbb</code>之间的空格表示普通字符，与a和b的意义相同，<code>touch</code>命令只会创建一个文件“aaa bbb”。</p>
+<h2 id="单引号"><a href="#单引号" class="headerlink" title="单引号"></a>单引号</h2><p>&emsp;&emsp;作用与双引号类似，区别是双引号只能将空格、制表符等部分特殊符号当普通字符来处理，而单引号可以作用于所有字符。比如<code>$</code>符号(用于引用变量)加了双引号还是特殊字符，加单引号则表示普通字符。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;PATH&#125;</span><br><span class="line">echo "$&#123;PATH&#125;"</span><br><span class="line">echo '$&#123;PATH&#125;'</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;上面的三行命令，第一行和第二行的作用相同，都是输出PATH变量，第三行命令只会输出字符串“$PATH”。</p>
+<h2 id="反引号"><a href="#反引号" class="headerlink" title="反引号"></a>反引号</h2><p>&emsp;&emsp;反引号用于使shell将字符串当做命令来处理。举个例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo ls -l</span><br><span class="line">echo `ls -l`</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;第一行命令会将字符串“ls -l”输出，第二行命令则会先执行<code>ls -l</code>命令，然后用<code>echo</code>命令将<code>ls -l</code>的执行结果输出。<br>&emsp;&emsp;反引号也可以用<code>$()</code>来代替，比如<code>`ls -l`</code>和<code>$(ls -l)</code>是等效的。</p>
+<h2 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h2><p>&emsp;&emsp;转义字符，将反斜杠后面的字符当做普通字符来处理。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch aaa\ bbb</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;上面命令里的空格被转义为普通字符，执行命令后会创建一个“aaa bbb”文件。</p>
+<h2 id="分号"><a href="#分号" class="headerlink" title="分号"></a>分号</h2><p>&emsp;&emsp;可以在一行执行多条命令，分号表示一条命令的结束。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "hello world"; ls -la;</span><br></pre></td></tr></table></figure>
+
+<h2 id="空格、制表符、换行符"><a href="#空格、制表符、换行符" class="headerlink" title="空格、制表符、换行符"></a>空格、制表符、换行符</h2><p>&emsp;&emsp;当做空白。</p>
+<h2 id="其他符号"><a href="#其他符号" class="headerlink" title="其他符号"></a>其他符号</h2><ol>
+<li><strong>*?!^</strong>：用于shell的<a href="#模式">模式</a>匹配。</li>
+<li><strong>&lt;&gt;</strong>：用于输入输出重定向，见<a href="#文件重定向">文件重定向</a>。</li>
+<li><strong>|</strong>：用于使用管道，见<a href="#管道">管道</a>。</li>
+<li><strong>$</strong>：用于引用变量，见<a href="#变量">变量</a>。</li>
+<li><strong>&amp;</strong>：将命令放到后台运行，见<a href="#后台切换">后台切换</a>。</li>
+<li><strong>#</strong>：在shell脚本里表示单行注释，见<a href="#单行注释">单行注释</a>。</li>
+<li><strong>()</strong>：<code>$()</code>用来表示括号里的是命令，和<a href="#反引号">反引号</a>作用相同。<code>$(())</code>用来表示<a href="#表达式运算">表达式运算</a>。</li>
+<li><strong>[]</strong>：用于shell的<a href="#模式">模式</a>匹配，或者用来表示<a href="#表达式运算">表达式运算</a>，也可以用来表示<a href="#条件判断">条件判断</a>。</li>
+<li><strong>{}</strong>：用于shell的<a href="#模式">模式</a>匹配，或者用来引用<a href="#变量">变量</a>，也可以用来生成序列，用法见<a href="#for语句">for语句</a>。</li>
+</ol>
+<h1 id="模式和正则表达式"><a href="#模式和正则表达式" class="headerlink" title="模式和正则表达式"></a>模式和正则表达式</h1><p>&emsp;&emsp;shell里的模式一般用来匹配文件路径，正则表达式则是用来匹配字符串的。</p>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>&emsp;&emsp;shell的模式包括普通字符和通配符，这里列出常用的一些通配符：</p>
+<table>
+<thead>
+<tr>
+<th align="center">通配符</th>
+<th align="center">含义</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>*</code></td>
+<td align="center">匹配0个或多个字符</td>
+<td align="left"><code>a*b</code>，a与b之间可以有任意长度的任意字符, 也可以一个也没有，比如：aabcb, axyzb, a012b, ab。</td>
+</tr>
+<tr>
+<td align="center"><code>?</code></td>
+<td align="center">匹配任意一个字符</td>
+<td align="left"><code>a?b</code>，a与b之间必须也只能有一个字符, 可以是任意字符，比如：aab, abb, acb, a0b。</td>
+</tr>
+<tr>
+<td align="center"><code>[list]</code></td>
+<td align="center">匹配list中的任意单一字符</td>
+<td align="left"><code>a[xyz]b</code>，a与b之间必须也只能有一个字符, 但只能是x或y或z, 比如：axb, ayb, azb。</td>
+</tr>
+<tr>
+<td align="center"><code>[c1-c2]</code></td>
+<td align="center">匹配c1到c2之间的任意一个字符</td>
+<td align="left"><code>a[0-9]b</code>，a与b之间必须也只能有一个0到9之间的字符，比如：a0b, a1b… a9b。</td>
+</tr>
+<tr>
+<td align="center"><code>[!list]</code>或<code>[^list]</code></td>
+<td align="center">匹配除list中的任意单一字符</td>
+<td align="left"><code>a[!xyz]b</code>，a与b之间必须也只能有一个字符, 但不能是x、y、z, 比如：a0b, apb, a-b。</td>
+</tr>
+<tr>
+<td align="center"><code>[!c1-c2]</code>或<code>[^c1-c2]</code></td>
+<td align="center">匹配不在c1-c2的任意字符</td>
+<td align="left"><code>a[!0-9]b</code>，比如：acb adb。</td>
+</tr>
+<tr>
+<td align="center"><code>{string1,string2,...}</code></td>
+<td align="center">匹配sring1或string2(或更多)其一字符串</td>
+<td align="left"><code>a{abc,xyz,123}b</code>，a与b之间必须是abc或xyz或123，比如：aabcb,axyzb,a123b</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;shell里的模式一般用来匹配多个文件或文件夹的路径，使用模式的常用命令有：ls、find、cp、mv、chmod…。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ ls -1 test_[0-9].sh</span><br><span class="line">test_0.sh</span><br><span class="line">test_1.sh</span><br><span class="line">test_2.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>&emsp;&emsp;正则表达式是用来匹配字符串的。linux里的grep是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来，这里用grep来演示正则表达式。<br>&emsp;&emsp;正则表达式常用元字符集：</p>
+<table>
+<thead>
+<tr>
+<th align="center">字符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>\</code></td>
+<td align="left">转义字符</td>
+</tr>
+<tr>
+<td align="center"><code>^</code></td>
+<td align="left">匹配字符串的开始位置</td>
+</tr>
+<tr>
+<td align="center"><code>$</code></td>
+<td align="left">匹配字符串的结束位置</td>
+</tr>
+<tr>
+<td align="center"><code>.</code></td>
+<td align="left">匹配任意一个字符</td>
+</tr>
+<tr>
+<td align="center"><code>[list]</code></td>
+<td align="left">匹配list里的任意一个字符。例如，<code>[abc]</code>可以匹配 “plain” 中的 ‘a’。</td>
+</tr>
+<tr>
+<td align="center"><code>[^list]</code></td>
+<td align="left">匹配除了list里的其他任意一个字符。例如，<code>[^abc]</code>可以匹配”plain”中的’p’、’l’、’i’、’n’。</td>
+</tr>
+<tr>
+<td align="center"><code>[c1-c2]</code></td>
+<td align="left">匹配c1到c2之间的任意字符。例如，<code>[a-z]</code>可以匹配’a’到’z’范围内的任意小写字母字符。</td>
+</tr>
+<tr>
+<td align="center"><code>[^c1-c2]</code></td>
+<td align="left">匹配不在c1到c2之间的任意字符。例如，<code>[^a-z]</code>可以匹配任何不在’a’ 到’z’范围内的任意字符。</td>
+</tr>
+<tr>
+<td align="center"><code>x|y</code></td>
+<td align="left">匹配x或y。例如，<code>z|food</code>能匹配”z”或”food”，<code>(z|f)ood</code>则匹配”zood”或”food”。</td>
+</tr>
+<tr>
+<td align="center"><code>()</code></td>
+<td align="left">标记一个子表达式的开始和结束位置。</td>
+</tr>
+<tr>
+<td align="center"><code>*</code></td>
+<td align="left">匹配前面的子表达式零次或多次。例如，<code>zo*</code>能匹配”z”以及”zoo”。<code>*</code>等价于<code>{0,}</code>。</td>
+</tr>
+<tr>
+<td align="center"><code>+</code></td>
+<td align="left">匹配前面的子表达式一次或多次。例如，<code>zo+</code>能匹配”zo”以及”zoo”，但不能匹配 “z”。<code>+</code>等价于<code>{1,}</code>。</td>
+</tr>
+<tr>
+<td align="center"><code>?</code></td>
+<td align="left">匹配前面的子表达式零次或一次。例如，<code>do(es)?</code>可以匹配”do”或”does”。<code>?</code>等价于<code>{0,1}</code>。</td>
+</tr>
+<tr>
+<td align="center"><code>{n}</code></td>
+<td align="left">匹配前面的子表达式确定的n次。例如，<code>o{2}</code>不能匹配”Bob”中的’o’，但是能匹配”food”中的两个’o’。</td>
+</tr>
+<tr>
+<td align="center"><code>{n,}</code></td>
+<td align="left">至少匹配前面的子表达式n次。例如，<code>o{2,}</code>不能匹配 “Bob” 中的 ‘o’，但能匹配”foooood”中的所有’o’。</td>
+</tr>
+<tr>
+<td align="center"><code>{n,m}</code></td>
+<td align="left">最少匹配前面的子表达式n次且最多匹配m次。例如，<code>o{1,3}</code>将匹配”fooooood”中的前三个’o’。注意，在逗号和两个数之间不能有空格。</td>
+</tr>
+<tr>
+<td align="center"><code>\b</code></td>
+<td align="left">匹配一个单词边界，也就是指单词和空格(shell里的grep并不限于空格，单词和’.’、’_’之间也能匹配)间的位置。例如，<code>er\b</code>可以匹配”never” 中的”er”，但不能匹配 “verb” 中的”er”。</td>
+</tr>
+<tr>
+<td align="center"><code>\B</code></td>
+<td align="left">匹配非单词边界。<code>er\B</code>能匹配”verb”中的”er”，但不能匹配”never”中的”er”。</td>
+</tr>
+<tr>
+<td align="center"><code>\d</code></td>
+<td align="left">匹配一个数字字符。等价于<code>[0-9]</code>。</td>
+</tr>
+<tr>
+<td align="center"><code>\D</code></td>
+<td align="left">匹配一个非数字字符。等价于 [^0-9]。</td>
+</tr>
+<tr>
+<td align="center"><code>\w</code></td>
+<td align="left">匹配字母、数字、下划线。等价于<code>[A-Za-z0-9_]</code>。</td>
+</tr>
+<tr>
+<td align="center"><code>\W</code></td>
+<td align="left">匹配非字母、数字、下划线。等价于<code>[^A-Za-z0-9_]</code>。</td>
+</tr>
+<tr>
+<td align="center"><code>\xn</code></td>
+<td align="left">匹配n，其中n为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，<code>\x41</code>匹配”A”。<code>\x041</code>则等价于’\x04’&amp;”1”。正则表达式中可以使用ASCII编码。</td>
+</tr>
+<tr>
+<td align="center"><code>\s</code></td>
+<td align="left">匹配任何空白字符，包括空格、制表符、换页符等等。等价于<code>[\f\n\r\t\v]</code>。</td>
+</tr>
+<tr>
+<td align="center"><code>\S</code></td>
+<td align="left">匹配任何非空白字符。等价于<code>[^\f\n\r\t\v]</code>。</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;<strong>注意</strong>：shell里用grep时，<code>|</code>、<code>()</code>、<code>{}</code>、<code>+</code>、<code>?</code>需要转义。比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ ls -1 | grep 'test_1\&#123;2\&#125;'</span><br><span class="line">test_11.sh</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;上面的<code>{</code>和<code>}</code>前面要加<code>\</code>转义。</p>
+<h1 id="表达式运算"><a href="#表达式运算" class="headerlink" title="表达式运算"></a>表达式运算</h1><h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>&emsp;&emsp;shell里的运算符基本跟c语言的一样</p>
+<ul>
+<li>基本运算符：+、-、*、/(加减乘除)、%(取模)</li>
+<li>逻辑运算符：&amp;&amp;、||、!(与或非)</li>
+<li>位运算符：&amp;(与)、|(或)、^(异或)、~(取反)、&lt;&lt;(位左移)、&gt;&gt;(位右移)</li>
+<li>赋值运算符：=、+=、*=、/=、%=、&amp;=、|=、^|、&lt;&lt;=、…..</li>
+</ul>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p>&emsp;&emsp;shell里用<code>$[表达式]</code>表示中括号里的是表达式，也可以用<code>$((表达式))</code>来表示，推荐使用中括号的形式。<br>&emsp;&emsp;<strong>注意</strong>：shell里只能对整形变量进行表达式运算，不能对字符串类型的变量进行表达式运算</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ declare -i VAR1=123</span><br><span class="line">xxx@xxx:~$ declare -i VAR2=111</span><br><span class="line">xxx@xxx:~$ echo $[VAR1 + VAR2]</span><br><span class="line">234</span><br></pre></td></tr></table></figure>
+
+<h2 id="expr命令"><a href="#expr命令" class="headerlink" title="expr命令"></a>expr命令</h2><p>&emsp;&emsp;也可以用expr命令来进行表达式运算，expr命令支持的运算符有：|、&amp;、&lt;、&lt;=、=、!=、&gt;=、+、-、*、/、%。语法：<code>expr 表达式</code>，举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ expr 123 + 111  # 加法运算</span><br><span class="line">234</span><br><span class="line">xxx@xxx:~$ VAR1=333</span><br><span class="line">xxx@xxx:~$ VAR2=234</span><br><span class="line">xxx@xxx:~$ expr $&#123;VAR1&#125; - $&#123;VAR2&#125;  # 变量１减变量２</span><br><span class="line">99</span><br><span class="line">xxx@xxx:~$ expr $&#123;VAR1&#125; \* $&#123;VAR2&#125;  # 变量１乘变量２</span><br><span class="line">77922</span><br><span class="line">xxx@xxx:~$ expr $&#123;VAR1&#125; / $&#123;VAR2&#125;  # 变量１除变量２</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;<strong>注意</strong>：运算符两边都有一个空格。部分运算符前面要加个<code>\</code>来转义，比如*、&amp;、(、&gt;。<br>&emsp;&emsp;还可以用小括号来组成更复杂的表达式。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ expr 12 \* \( 34 - 26 \)  # 乘号和小括号前都要加\</span><br><span class="line">96</span><br><span class="line">xxx@xxx:~$ declare -i VAR1=413</span><br><span class="line">xxx@xxx:~$ declare -i VAR2=34</span><br><span class="line">xxx@xxx:~$ expr $&#123;VAR1&#125; % \( $&#123;VAR2&#125; - 21 \) </span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;expr还可以进行简单的字符串运算，支持的有：</p>
+<ul>
+<li><strong>字符串 : 正则表达式</strong>： 在字符串中由给定正则表达式决定的锚定模式匹配。</li>
+<li><strong>match 字符串 正则表达式</strong>：与“字符串 : 正则表达式”相同。</li>
+<li><strong>substr 字符串 位置 长度</strong>：从某个位置开始，截取指定长度的子串，位置由 1 开始计数。</li>
+<li><strong>index 字符串 字符</strong>：字符串中第一次出现指定字符的位置，如果不存在该字符，则输出0。</li>
+<li><strong>length 字符串</strong>：字符串的长度。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ expr substr 'this is a test' 2 8</span><br><span class="line">his is a</span><br><span class="line">xxx@xxx:~$ expr length 'this is a test'</span><br><span class="line">14</span><br><span class="line">xxx@xxx:~$ expr index 'this is a test' s</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;expr命令会将计算结果输出到标准输出，如果想将结果保存到变量里，可以用反引号来实现。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ VAR=`expr 23 \* 42`</span><br><span class="line">xxx@xxx:~$ echo $&#123;VAR&#125;</span><br><span class="line">966</span><br></pre></td></tr></table></figure>
+
+<h1 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h1><p>&emsp;&emsp;shell里可以用test命令进行条件判断。语法：<code>test 表达式</code>或者<code>[ 表达式 ]</code>(注意这里中括号和表达式之间的空格不能省)。<br>&emsp;&emsp;可以通过查看变量$?的值，来判断表达式是否成立，如果成立，test命令返回值为0，变量$?的值也是0，如果不成立，则值为非0。test命令可以进行的条件判断包括以下几种。</p>
+<h2 id="字符串判断"><a href="#字符串判断" class="headerlink" title="字符串判断"></a>字符串判断</h2><ul>
+<li><strong>-z 字符串</strong>：字符串的长度为 0</li>
+<li><strong>-n 字符串</strong>：字符串长度非零</li>
+<li><strong>字符串</strong>：等价于<code>-n 字符串</code></li>
+<li><strong>字符串1 = 字符串2</strong>：字符串相等</li>
+<li><strong>字符串1 != 字符串2</strong>：字符串不相等</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ VAR=''</span><br><span class="line">xxx@xxx:~$ [ -z $&#123;VAR&#125; ] # 判断字符串$&#123;VAR&#125;长度是否为0</span><br><span class="line">xxx@xxx:~$ echo $?  # 查看test命令的返回值</span><br><span class="line">0</span><br><span class="line">xxx@xxx:~$ VAR='abc'</span><br><span class="line">xxx@xxx:~$ [ -z $&#123;VAR&#125; ]</span><br><span class="line">xxx@xxx:~$ echo $?</span><br><span class="line">1</span><br><span class="line">xxx@xxx:~$ [ $&#123;VAR&#125; = 'abc' ] # 判断字符串$&#123;VAR&#125;是否等于'abc'</span><br><span class="line">xxx@xxx:~$ echo $?</span><br><span class="line">0</span><br><span class="line">xxx@xxx:~$ [ $&#123;VAR&#125; = '123' ]</span><br><span class="line">xxx@xxx:~$ echo $?</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<h2 id="整数判断"><a href="#整数判断" class="headerlink" title="整数判断"></a>整数判断</h2><ul>
+<li><strong>整数1 -eq 整数2</strong>：整数1与整数2相等</li>
+<li><strong>整数1 -ge 整数2</strong>：整数1大于或等于整数2</li>
+<li><strong>整数1 -gt 整数2</strong>：整数1大于整数2</li>
+<li><strong>整数1 -le 整数2</strong>：整数1小于或等于整数2</li>
+<li><strong>整数1 -lt 整数2</strong>：整数1小于整数2</li>
+<li><strong>整数1 -ne 整数2</strong>：整数1和整数2不相等</li>
+</ul>
+<h2 id="文件判断"><a href="#文件判断" class="headerlink" title="文件判断"></a>文件判断</h2><ul>
+<li><strong>-e 文件</strong>：文件存在</li>
+<li><strong>-d 文件</strong>：文件存在且为目录</li>
+<li><strong>-f 文件</strong>：文件存在且为普通文件</li>
+<li><strong>-r 文件</strong>：文件存在且有可读权限</li>
+<li><strong>-w 文件</strong>：文件存在且有可写权限</li>
+<li><strong>-x 文件</strong>：文件存在且有可执行（或搜索）权限</li>
+<li><strong>-b 文件</strong>：文件存在且为块特殊文件</li>
+<li><strong>-c 文件</strong>：文件存在且为字符特殊文件</li>
+<li><strong>-g 文件</strong>：文件存在且被设置了 set-group-ID 位</li>
+<li><strong>-g 文件</strong>：文件存在且为有效组ID 所有</li>
+<li><strong>-h 文件</strong>：文件存在且为一个符号链接（与 -L 相同）</li>
+<li><strong>-L 文件</strong>：文件存在且为一个符号链接（与 -h 相同）</li>
+<li><strong>-k 文件</strong>：文件存在且被设置粘着位</li>
+<li><strong>-O 文件</strong>：文件存在且为有效用户ID 所有</li>
+<li><strong>-p 文件</strong>：文件存在且为命名管道</li>
+<li><strong>-s 文件</strong>：文件存在且其大小大于零</li>
+<li><strong>-S 文件</strong>：文件存在且为套接字</li>
+<li><strong>-u 文件</strong>：文件存在且被设置了 set-user-ID 位</li>
+<li><strong>-t FD</strong>：文件描述符 FD 在某个终端打开</li>
+<li><strong>文件1 -ef 文件2</strong>：文件1 和文件2 拥有相同的设备编号与 inode 编号</li>
+<li><strong>文件1 -nt 文件2</strong>：文件1 在修改时间上新于文件2</li>
+<li><strong>文件1 -ot 文件2</strong>：文件1 比文件2 更旧</li>
+</ul>
+<h2 id="逻辑判断"><a href="#逻辑判断" class="headerlink" title="逻辑判断"></a>逻辑判断</h2><ul>
+<li><strong>! 表达式</strong>：表达式为假</li>
+<li><strong>表达式1 -a 表达式2</strong>：表达式1 与表达式2 皆为真</li>
+<li><strong>表达式1 -o 表达式2</strong>：表达式1 或表达式2 为真</li>
+</ul>
+<h1 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h1><h2 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h2><p>&emsp;&emsp;直接上语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if 条件1</span><br><span class="line">then</span><br><span class="line">	条件1成立时执行的命令</span><br><span class="line">elif 条件2</span><br><span class="line">then</span><br><span class="line">	条件1不成立，且条件2成立时执行的命令</span><br><span class="line">else</span><br><span class="line">	条件1和条件2都不成立时执行的命令</span><br><span class="line">fi # 结束if语句</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这里的条件一般是一条shell命令，比如<code>test</code>、<code>gcc</code>等。如果命令的返回值为0，则条件成立。<br>&emsp;&emsp;小实验：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">xxx@xxx:~$ cat shell.sh </span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">if [ $&#123;1&#125; -gt $&#123;2&#125; ]  # 判断$&#123;1&#125;是否大于$&#123;2&#125;</span><br><span class="line">then</span><br><span class="line">	echo 'num_1 &gt; num_2'</span><br><span class="line">elif [ $&#123;1&#125; -eq $&#123;2&#125; ]  # 判断$&#123;1&#125;是否等于$&#123;2&#125;</span><br><span class="line">then</span><br><span class="line">	echo 'num_1 = num_2'</span><br><span class="line">else</span><br><span class="line">	echo 'num_1 &lt; num_2'</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">xxx@xxx:~$ ./shell.sh 12 12</span><br><span class="line">num_1 = num_2</span><br><span class="line">xxx@xxx:~$ ./shell.sh 12 11</span><br><span class="line">num_1 &gt; num_2</span><br><span class="line">xxx@xxx:~$ ./shell.sh 12 13</span><br><span class="line">num_1 &lt; num_2</span><br></pre></td></tr></table></figure>
+
+<h2 id="case语句"><a href="#case语句" class="headerlink" title="case语句"></a>case语句</h2><p>&emsp;&emsp;语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">case 字符串 in</span><br><span class="line">模式1)</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 模式1能匹配字符串时执行的命令</span></span><br><span class="line">	;; # 表示结束</span><br><span class="line">模式2)</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 模式2能匹配字符串时执行的命令</span></span><br><span class="line">	;; # 结束</span><br><span class="line">*)</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 以上模式都不匹配时执行的命令</span></span><br><span class="line">	;; # 结束</span><br><span class="line">esac # 结束case语句</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;case语句只能对字符串进行判断，这里的模式是指正则表达式。</p>
+<h1 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h1><h2 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h2><p>&emsp;&emsp;语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for VAR in item1 item2 .... itemN</span><br><span class="line">do</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 循环内的命令</span></span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ cat shell.sh </span><br><span class="line"></span><br><span class="line">for VAR in aaa bbb ccc</span><br><span class="line">do</span><br><span class="line">	echo $&#123;VAR&#125;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">stxw@stxw-c:~$ bash shell.sh </span><br><span class="line">aaa</span><br><span class="line">bbb</span><br><span class="line">ccc</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;然后再介绍几种shell里与for语句搭配使用的形式。</p>
+<ol>
+<li><p><code>{s..e}</code>：用来生成从s到e的序列，s和e可以是整数，也可以是大小写字母。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ echo &#123;-3..12&#125;</span><br><span class="line">-3 -2 -1 0 1 2 3 4 5 6 7 8 9 10 11 12</span><br><span class="line">stxw@stxw-c:~$ echo &#123;a..z&#125;</span><br><span class="line">a b c d e f g h i j k l m n o p q r s t u v w x y z</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这里要注意的是，s和e中间有<strong>两个</strong>点，多一个或少一个都不行。<br>&emsp;&emsp;如果s和e是整数的话，可以在s和e前面加0，达到自动用0补全的效果，比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ echo &#123;001..012&#125;</span><br><span class="line">001 002 003 004 005 006 007 008 009 010 011 012</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这个和for循环搭配使用，就可以从s循环到e了，举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ cat shell.sh </span><br><span class="line"></span><br><span class="line">for i in &#123;01..04&#125;</span><br><span class="line">do</span><br><span class="line">	echo "str_$&#123;i&#125;"</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">stxw@stxw-c:~$ bash shell.sh </span><br><span class="line">str_01</span><br><span class="line">str_02</span><br><span class="line">str_03</span><br><span class="line">str_04</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>`命令`</code>或者<code>$(命令)</code>：用for语句来循环shell命令的输出，下面的例子用for语句输出当前目录的所有文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for FILE_NAME in `ls`</span><br><span class="line">do</span><br><span class="line">	echo $&#123;FILE_NAME&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这里再重点介绍一下seq命令，seq命令也是用来生成序列的，与<code>{s..e}</code>不同的是，seq可以生成浮点数序列，但是不能生成大小写字母序列，用法有三种，如下：</p>
+</li>
+</ol>
+<ul>
+<li>seq [选项]… 尾数</li>
+<li>seq [选项]… 首数 尾数</li>
+<li>seq [选项]… 首数 增量 尾数</li>
+</ul>
+<p>&emsp;&emsp;首数默认是1，增量默认也是1，可用的选项有三个：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-f</td>
+<td>指定生成的序列中每个数字的格式，指定方式和c语言的printf函数方式相同，<br>比如<code>%2.1f</code>，要注意的是只能用<code>%f</code>，<code>%d</code>和<code>%lf</code>都不行。</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>指定分隔数字的字符串，默认是换行<code>\n</code>。</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>通过填充前导零来均衡宽度，这个不能和<code>-f</code>同时使用。</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;一些例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ seq 3 # 只有一个数字的，生成从1到该数字的序列，默认增量是1</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">stxw@stxw-c:~$ seq -s ' ' 12  # 用空格来分隔数字</span><br><span class="line">1 2 3 4 5 6 7 8 9 10 11 12</span><br><span class="line">stxw@stxw-c:~$ </span><br><span class="line">stxw@stxw-c:~$ seq -s ' ' -3 12  # 有两个数字的，生成两个数字之间增量为1的序列</span><br><span class="line">-3 -2 -1 0 1 2 3 4 5 6 7 8 9 10 11 12</span><br><span class="line">stxw@stxw-c:~$ </span><br><span class="line">stxw@stxw-c:~$ seq -s ' ' -3 0.8 12 # 三个数字的</span><br><span class="line">-3.0 -2.2 -1.4 -0.6 0.2 1.0 1.8 2.6 3.4 4.2 5.0 5.8 6.6 7.4 8.2 9.0 9.8 10.6 11.4</span><br><span class="line">stxw@stxw-c:~$ </span><br><span class="line">stxw@stxw-c:~$ seq -s '__' -3 12  # 用'__'来分隔数字</span><br><span class="line">-3__-2__-1__0__1__2__3__4__5__6__7__8__9__10__11__12</span><br><span class="line">stxw@stxw-c:~$ </span><br><span class="line">stxw@stxw-c:~$ seq -s ' ' -w -3 12  # 通过填充前导零来均衡宽度</span><br><span class="line">-3 -2 -1 00 01 02 03 04 05 06 07 08 09 10 11 12</span><br><span class="line">stxw@stxw-c:~$ </span><br><span class="line">stxw@stxw-c:~$ seq -s ' ' -f %05.2f 12  # 指定数字的格式</span><br><span class="line">01.00 02.00 03.00 04.00 05.00 06.00 07.00 08.00 09.00 10.00 11.00 12.00</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;seq与for语句搭配使用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ cat shell.sh </span><br><span class="line"></span><br><span class="line">for i in `seq -3 12`</span><br><span class="line">do</span><br><span class="line">	echo -n "$&#123;i&#125; "</span><br><span class="line">done</span><br><span class="line">echo</span><br><span class="line"></span><br><span class="line">stxw@stxw-c:~$ bash shell.sh </span><br><span class="line">-3 -2 -1 0 1 2 3 4 5 6 7 8 9 10 11 12</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>最后一种是for语句和路径通配符，举个栗子：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ cat shell.sh </span><br><span class="line"><span class="meta">#</span><span class="bash"> 用<span class="keyword">for</span>语句输出当前目录下的所有文件</span></span><br><span class="line">for FILE_NAME in ./*</span><br><span class="line">do</span><br><span class="line">	echo -n "$&#123;FILE_NAME&#125; "</span><br><span class="line">done</span><br><span class="line">echo</span><br><span class="line"></span><br><span class="line">stxw@stxw-c:~$ bash shell.sh </span><br><span class="line">./a.out ./in.txt ./out.txt ./shell.sh ./test.cpp</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h2><p>&emsp;&emsp;语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while 条件测试</span><br><span class="line">do</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 循环内的命令</span></span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;while语句首先进行条件测试，如果条件为真，则进入循环，直到条件为假时退出循环，跟C语言的一样。while语句的一个经典的用法是搭配输入重定向，读取文件的内容，下面是一个例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while read VAR # 读取标准输入的一行</span><br><span class="line">do</span><br><span class="line">	echo $&#123;VAR&#125;</span><br><span class="line">done &lt; in.txt # 将in.txt文件重定向到标准输入</span><br></pre></td></tr></table></figure>
+
+<h2 id="until语句"><a href="#until语句" class="headerlink" title="until语句"></a>until语句</h2><p>&emsp;&emsp;语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">until 条件测试</span><br><span class="line">do</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 循环内的命令</span></span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;until语句在条件为假时进入循环，条件为真时退出循环，其他和while语句相同。</p>
+<h1 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h1><h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>&emsp;&emsp;find命令用于查找文件，这里简单的列出一些常用的用法，更详细的用法可以查manpages。</p>
+<h3 id="根据文件名查找"><a href="#根据文件名查找" class="headerlink" title="根据文件名查找"></a>根据文件名查找</h3><p>&emsp;&emsp;语法<code>find 查找的路径 -name pattern</code>，查找文件名与<a href="#模式">模式</a>pattern相匹配的文件。比如查找当前目录下所有以’.sh’结尾的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -name "*.sh"</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据正则表达式查找"><a href="#根据正则表达式查找" class="headerlink" title="根据正则表达式查找"></a>根据正则表达式查找</h3><p>&emsp;&emsp;语法<code>find 查找的路径 -regex pattern</code>，查找文件名与<a href="#正则表达式">正则表达式</a>pattern相匹配的文件。比如查找当前目录下所有以’test’开头的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -regex '^\./test.*'</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据路径查找"><a href="#根据路径查找" class="headerlink" title="根据路径查找"></a>根据路径查找</h3><p>&emsp;&emsp;语法<code>find 查找的路径 -path pattern</code>，查找文件的完整路径与<a href="#模式">模式</a>pattern相匹配的文件。与<code>-name</code>的区别是<code>-name</code>不匹配文件所在的目录，举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stxw@stxw-c:~$ find ./shell -name "*sh*"</span><br><span class="line">./shell</span><br><span class="line">./shell/test_1.sh</span><br><span class="line">stxw@stxw-c:~$ find ./shell -path "*sh*"</span><br><span class="line">./shell</span><br><span class="line">./shell/stxw.txt</span><br><span class="line">./shell/test_1.sh</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;使用<code>-name</code>匹配文件’./shell/stxw.txt’时，只匹配文件名’stxw.txt’，因为’stxw.txt’和模式”*sh*“不匹配，所以不输出。使用<code>-path</code>匹配文件’./shell/stxw.txt’时，会匹配文件的完整路径’./shell/stxw.txt’，而’./shell/stxw.txt’和模式”*sh*“匹配成功。</p>
+<h3 id="根据文件类型查找"><a href="#根据文件类型查找" class="headerlink" title="根据文件类型查找"></a>根据文件类型查找</h3><p>&emsp;&emsp;语法<code>find 查找的路径 -type c</code>，查找文件文件类型是c的文件，类型包括：</p>
+<ul>
+<li>b ：特殊块文件(缓冲的)</li>
+<li>c ：特殊字符文件(不缓冲)</li>
+<li>d ：目录</li>
+<li>p ：命名管道(FIFO)</li>
+<li>f ：普通文件</li>
+<li>l ：符号链接</li>
+<li>s ：套接字</li>
+</ul>
+<p>&emsp;&emsp;查找当前目录下的普通文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -type f</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据文件大小查找"><a href="#根据文件大小查找" class="headerlink" title="根据文件大小查找"></a>根据文件大小查找</h3><p>&emsp;&emsp;语法<code>find 查找的路径 -size n[单位]</code>，查找文件大小是n的文件，默认的单位是512字节的块，也可以使用其他单位，支持的单位有：</p>
+<ul>
+<li>b ：块(512字节)</li>
+<li>c ：字节</li>
+<li>w ：字(2字节)</li>
+<li>k ：千字节</li>
+<li>M ：兆字节</li>
+<li>G ：千兆字节</li>
+</ul>
+<p>&emsp;&emsp;还可以在n前面加个加号和减号，加个加号表示查找文件大小大于n的文件，减号表示小于，如果不加的话则查找文件大小刚好等于n的文件。举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下文件大小等于8个块的文件</span></span><br><span class="line">find ./ -size 8b</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下文件大小大于100千字节的文件（不包括等于100千字节的文件）</span></span><br><span class="line">find ./ -size +100k</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下文件大小小于10兆的文件（不包括等于10M的文件）</span></span><br><span class="line">find ./ -size -10M</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这里还有一个要注意的细节是，n必须是整数，所以低阶单位换算成高阶单位要向上取整，比如某个大小为70字节的文件，换算成块是70÷512=0.13671875块，但是用块来查找的时候，find命令将这个文件大小当做等于1个块来处理。</p>
+<h3 id="根据时间查找"><a href="#根据时间查找" class="headerlink" title="根据时间查找"></a>根据时间查找</h3><p>&emsp;&emsp;语法：<code>find 查找的路径 -[时间类型][时间单位] n</code>，参数的关键字由时间类型和时间单位组成，时间类型包括三种：</p>
+<ul>
+<li>访问时间 ：对文件的最后一次的访问时间，用a表示。</li>
+<li>修改时间 ：文件数据最后一次的修改时间，用m表示。</li>
+<li>变化时间 ：文件状态(例如权限、所有者等)最后一次修改时间，用c表示。</li>
+</ul>
+<p>时间单位支持两种：</p>
+<ul>
+<li>min ：分钟</li>
+<li>time ：24个小时</li>
+</ul>
+<p>将三种时间类型和两种时间单位组合，可以产生6种参数：</p>
+<ul>
+<li>-amin n ：对文件的最后一次的访问时间是在n分钟之前。</li>
+<li>-atime n ：对文件的最后一次的访问时间是在n×24小时之前。</li>
+<li>-mmin n ：文件数据最后一次的修改时间是在n分钟之前。</li>
+<li>-mtime n ：文件数据最后一次的修改时间是在n×24小时之前。</li>
+<li>-cmin n ：文件状态最后一次修改时间是在n分钟之前。</li>
+<li>-ctime n ：文件状态最后一次修改时间是在n×24小时之前。</li>
+</ul>
+<p>&emsp;&emsp;举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，最后一次的访问是在5分钟之前的文件。</span></span><br><span class="line">find ./ -amin 5</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，文件数据最后一次的修改时间是在2×24小时之前的文件。</span></span><br><span class="line">find ./ -mtime 2</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;如果n前面加个负号，则查找的是对应时间离现在不超过n的文件，举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，最后一次的访问时间离现在不超过5分钟的文件。</span></span><br><span class="line">find ./ -amin -5</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;还可以以某个文件的最后一次修改时间作为参照，来查找文件。</p>
+<ul>
+<li>-anewer file ：对文件的最后一次访问时间在file的最后一次修改时间之后。</li>
+<li>-newer file ：文件数据最后一次的修改时间在file的最后一次修改时间之后。(注意这里前面不要加m)</li>
+<li>-cnewer file ：文件状态最后一次修改时间在file的最后一次修改时间之后。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，最后一次的访问时间在./test.sh文件的最后一次修改时间之后的文件。</span></span><br><span class="line">find ./ -anewer ./test.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据文件所有者查找"><a href="#根据文件所有者查找" class="headerlink" title="根据文件所有者查找"></a>根据文件所有者查找</h3><p>参数：</p>
+<ul>
+<li>-user uname ：文件的所有者是uname(也可以使用数字形式的用户ID)。</li>
+<li>-group gname ：文件属于gname(也允许使用数字形式的组ID)群组。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，文件所有者是root的文件。</span></span><br><span class="line">find ./ -user root</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，文件所在群组为root的文件。</span></span><br><span class="line">find ./ -group root</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据权限查找"><a href="#根据权限查找" class="headerlink" title="根据权限查找"></a>根据权限查找</h3><ul>
+<li>-perm mode ：文件的权限位恰好是mode(八进制或符号)。</li>
+<li>-perm -mode ：mode中的所有的权限位都被设置了的文件。</li>
+<li>-perm +mode ：mode中的任意一个的权限位被设置了的文件。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，权限是0777的文件。</span></span><br><span class="line">find ./ -perm 0777</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，文件所有者既有可写，又有可执行权限的文件。</span></span><br><span class="line">find ./ -perm -0300</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，文件所有者有可写，或者有可执行权限的文件。</span></span><br><span class="line">find ./ -perm +0300 # 这条命令会报错“find: 非法权限 ‘+0300’”，不知道为什么</span><br></pre></td></tr></table></figure>
+
+<h3 id="多条件查找"><a href="#多条件查找" class="headerlink" title="多条件查找"></a>多条件查找</h3><p>&emsp;&emsp;可以用与或非逻辑，查找满足多种条件的命令。</p>
+<ul>
+<li>!或-not ：查找不满足条件的文件。</li>
+<li>-a或-and ：查找两个条件都满足的文件。(默认的条件连接逻辑)</li>
+<li>-o或-or ：查找满足任意一个条件的文件。</li>
+</ul>
+<p>&emsp;&emsp;举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，除文件目录外的所有文件</span></span><br><span class="line">find ./ ! -type d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，文件大小在2M到100M之间的文件</span></span><br><span class="line">find ./ -size +2M -and -size -100M</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，以.png或.jpg结尾的文件</span></span><br><span class="line">find ./ -name "*.png" -or -name "*.jpg"</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;逻辑运算的优先级是“! &gt; -not &gt; 缺省与 &gt; -a &gt; -and &gt; -o &gt; -or”。如果要提高运算的优先级，可以用小括号括起来。举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下，以.png或.jpg结尾，且大小大于1M的文件</span></span><br><span class="line">find ./ \( -name "*.png" -or -name "*.jpg" \) -and -size +1M</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;上面的命令中，如果不加扩号，会先进行与运算，再进行或运算。加了括号以后，则优先进行括号里的或运算，再进行与运算。<br>&emsp;&emsp;要注意的是两个括号前面要加<code>\</code>转义，而且前后都要用空格和其他参数分开。</p>
+<h3 id="找到文件后执行命令"><a href="#找到文件后执行命令" class="headerlink" title="找到文件后执行命令"></a>找到文件后执行命令</h3><p>&emsp;&emsp;find命令可以用<code>-exec</code>和<code>-ok</code>参数，在找到的文件后执行特定的命令。举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录下以.sh结尾的文件，并将找到的文件移动到./shell/目录下</span></span><br><span class="line">find ./ -name "*.sh" -exec mv &#123;&#125; ./shell/ \;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;上述命令中，<code>{}</code>表示找到的文件，<code>\;</code>表示命令的结束。<br>&emsp;&emsp;find命令中，<code>-exec</code>和<code>-ok</code>的区别是，使用<code>-ok</code>在每次执行命令前会进行确认是否执行，<code>-exec</code>则直接执行，不确认。<br>&emsp;&emsp;如果在对找到的文件要执行多条命令，可以使用多次<code>-exec</code>或<code>-ok</code>，举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将当前目录下的文件输出两遍</span></span><br><span class="line">find ./ -exec echo &#123;&#125; \; -exec echo &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h2><h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2>
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+	  <hr>
+      <div class="post-share">分享到：</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/acm/hdu-1754/" rel="next" title="HDU-1754 I Hate It">
+                <i class="fa fa-chevron-left"></i> HDU-1754 I Hate It
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/acm/poj_1679/" rel="prev" title="POJ_1679 The Unique MST">
+                POJ_1679 The Unique MST <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: '6iCAxfaoBsA1LaiU36OQQVya-MdYXbMMI',
+        appKey: 'gVPQRrCwc64fycoMHuq9jfgG',
+        placeholder: '说点什么吧！ (*´∇｀*)',
+        avatar: 'mp',
+        pageSize: '' || 10,
+		meta: ['nick', 'mail', 'link'],
+
+		// 设置Bilibili表情包地址
+		emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+		// 表情title和图片映射
+		emojiMaps: {
+			"tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+			"tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+			"tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+			"tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+			"tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+			"tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+			"tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+			"tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+			"tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+			"tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+			"tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+			"tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+			"tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+			"tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+			"tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+			"tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+			"tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+			"tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+			"tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+			"tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+			"tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+			// ... 更多表情
+		},
+    });
+  </script>
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://api.ixiaowai.cn/mcapi/mcapi.php"
+                alt="stxw" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/stxw" target="_blank" title="GitHub" data-balloon="GitHub" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://wpa.qq.com/msgrd?v=3&uin=1845812298&site=qq&menu=yes" target="_blank" title="QQ" data-balloon="QQ" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-qq"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+            
+
+          </nav>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell"><span class="nav-number">1.1.</span> <span class="nav-text">shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell脚本"><span class="nav-number">1.2.</span> <span class="nav-text">shell脚本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行方式"><span class="nav-number">2.</span> <span class="nav-text">执行方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注释"><span class="nav-number">3.</span> <span class="nav-text">注释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单行注释"><span class="nav-number">3.1.</span> <span class="nav-text">单行注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多行注释"><span class="nav-number">3.2.</span> <span class="nav-text">多行注释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#别名"><span class="nav-number">4.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入输出"><span class="nav-number">5.</span> <span class="nav-text">输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">5.1.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">5.2.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件重定向"><span class="nav-number">5.3.</span> <span class="nav-text">文件重定向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量"><span class="nav-number">7.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明"><span class="nav-number">7.1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">7.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值"><span class="nav-number">7.3.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#释放"><span class="nav-number">7.4.</span> <span class="nav-text">释放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部变量"><span class="nav-number">7.5.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量"><span class="nav-number">7.6.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊变量"><span class="nav-number">7.7.</span> <span class="nav-text">特殊变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后台切换"><span class="nav-number">8.</span> <span class="nav-text">后台切换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特殊字符"><span class="nav-number">9.</span> <span class="nav-text">特殊字符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双引号"><span class="nav-number">9.1.</span> <span class="nav-text">双引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单引号"><span class="nav-number">9.2.</span> <span class="nav-text">单引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反引号"><span class="nav-number">9.3.</span> <span class="nav-text">反引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反斜杠"><span class="nav-number">9.4.</span> <span class="nav-text">反斜杠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分号"><span class="nav-number">9.5.</span> <span class="nav-text">分号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空格、制表符、换行符"><span class="nav-number">9.6.</span> <span class="nav-text">空格、制表符、换行符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他符号"><span class="nav-number">9.7.</span> <span class="nav-text">其他符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模式和正则表达式"><span class="nav-number">10.</span> <span class="nav-text">模式和正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模式"><span class="nav-number">10.1.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">10.2.</span> <span class="nav-text">正则表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表达式运算"><span class="nav-number">11.</span> <span class="nav-text">表达式运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">11.1.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#格式"><span class="nav-number">11.2.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expr命令"><span class="nav-number">11.3.</span> <span class="nav-text">expr命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件判断"><span class="nav-number">12.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串判断"><span class="nav-number">12.1.</span> <span class="nav-text">字符串判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整数判断"><span class="nav-number">12.2.</span> <span class="nav-text">整数判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件判断"><span class="nav-number">12.3.</span> <span class="nav-text">文件判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑判断"><span class="nav-number">12.4.</span> <span class="nav-text">逻辑判断</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支结构"><span class="nav-number">13.</span> <span class="nav-text">分支结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if语句"><span class="nav-number">13.1.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case语句"><span class="nav-number">13.2.</span> <span class="nav-text">case语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环结构"><span class="nav-number">14.</span> <span class="nav-text">循环结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#for语句"><span class="nav-number">14.1.</span> <span class="nav-text">for语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while语句"><span class="nav-number">14.2.</span> <span class="nav-text">while语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#until语句"><span class="nav-number">14.3.</span> <span class="nav-text">until语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他命令"><span class="nav-number">15.</span> <span class="nav-text">其他命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">15.1.</span> <span class="nav-text">find</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据文件名查找"><span class="nav-number">15.1.1.</span> <span class="nav-text">根据文件名查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据正则表达式查找"><span class="nav-number">15.1.2.</span> <span class="nav-text">根据正则表达式查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据路径查找"><span class="nav-number">15.1.3.</span> <span class="nav-text">根据路径查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据文件类型查找"><span class="nav-number">15.1.4.</span> <span class="nav-text">根据文件类型查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据文件大小查找"><span class="nav-number">15.1.5.</span> <span class="nav-text">根据文件大小查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据时间查找"><span class="nav-number">15.1.6.</span> <span class="nav-text">根据时间查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据文件所有者查找"><span class="nav-number">15.1.7.</span> <span class="nav-text">根据文件所有者查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据权限查找"><span class="nav-number">15.1.8.</span> <span class="nav-text">根据权限查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多条件查找"><span class="nav-number">15.1.9.</span> <span class="nav-text">多条件查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找到文件后执行命令"><span class="nav-number">15.1.10.</span> <span class="nav-text">找到文件后执行命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sed"><span class="nav-number">15.2.</span> <span class="nav-text">sed</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk"><span class="nav-number">15.3.</span> <span class="nav-text">awk</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <!--<div class="footer-image"></div>-->
+      <div class="footer-inner">
+        <p>
+小破站在各种灾难中苟活了
+	<span id="since"></span>
+	<span class="my-face">o(╥﹏╥)o</span>
+	<a href="/sitemap.xml" target="_blank">RSS</a>
+</p>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数 <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量 <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+	
+		<div class="waifu">
+	<div class="waifu-tips"></div>
+	<canvas id="live2d" height="380" style="width:300px;" ></canvas>
+	<div class="waifu-tool">
+		<i class="fa fa-commenting" ></i>
+		<i class="fa fa-camera" ></i>
+		<i class="fa fa-chevron-down" ></i>
+	</div>
+</div>
+<div class="waifu-show">
+	<i class= "fa fa-chevron-up"></i>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/live2d.js"></script>
+<script>
+	loadlive2d('live2d', "https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/live2d_model/nepnep/index.json");
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/waifu.js"></script>
+
+	
+
+    
+
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/sagiri.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/highlight_tool.js"></script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('2');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

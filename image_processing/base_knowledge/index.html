@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/social-share.js/1.0.9/css/share.min.css" rel="stylesheet" type="text/css" />
+
+<link href="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/css/main.css?v=0.0.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=0.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/stxw.jpg?v=0.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=0.0.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="图像处理," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一些关于数字图像处理的基本知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像基础">
+<meta property="og:url" content="http://stxw.ml/image_processing/base_knowledge/index.html">
+<meta property="og:site_name" content="stxw">
+<meta property="og:description" content="一些关于数字图像处理的基本知识">
+<meta property="article:published_time" content="2020-02-18T12:44:55.000Z">
+<meta property="article:modified_time" content="2021-02-27T13:07:15.397Z">
+<meta property="article:author" content="stxw">
+<meta property="article:tag" content="图像处理">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '0.0.4',
+    sidebar: {"position":"right","display":"always","offset":52,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    since: '6/1/2020 00:00:00',
+    onlineAPI: '',
+    site: {
+      title: 'stxw',
+      subtitle: '',
+      author: 'stxw'
+    },
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    leancloud: {
+      enable: false,
+      appID: '',
+      appKey: ''
+    },
+    favicon: {
+      visibilitychange: true,
+      narmal: '/images/stxw.jpg',
+      hidden: '/images/failure.ico',
+      show_text: '(/≧▽≦/)欢迎回来！',
+      hide_text: '(T﹏T)不要走嘛...'
+    },
+	load_to_main: true,
+	img_mirror: {
+      enable: true,
+      prefix: 'https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/'
+	}
+  };
+</script>
+
+
+
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="canonical" href="http://stxw.ml/image_processing/base_knowledge/"/>
+
+
+
+<script type="text/javascript">
+	/* 自动跳转到主要内容部分（主页除外） */
+	const stxw = {
+		load_to_main: function () {
+			var pathname = window.location.pathname;
+			var pre_pathname = sessionStorage.getItem("pre_pathname");
+			var cur_st = $(document).scrollTop();
+			if (pathname != "/" && cur_st < 10 && pathname != pre_pathname) {
+				$('html, body').animate({
+					scrollTop: $("#main").offset().top - 50
+				}, 500);
+			}
+			sessionStorage.setItem("pre_pathname", pathname);
+		},
+
+		use_img_mirror: function(prefix) {
+			var imgs = document.getElementsByTagName("img");
+			for(var i = 0; i < imgs.length; i++) {
+				img_src = imgs[i].src;
+				ind = img_src.indexOf("images");
+				if(ind >= 0) {
+					imgs[i].src = prefix + img_src.substring(ind);
+				}
+			}
+		}
+	}
+
+	$(function () {
+		if (window.CONFIG.load_to_main) {
+			stxw.load_to_main();
+		}
+		if (window.CONFIG.img_mirror.enable) {
+			stxw.use_img_mirror(window.CONFIG.img_mirror.prefix);
+		}
+	})
+</script>
+
+
+
+  <title>数字图像基础 | stxw</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="stxw" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-后宫">
+          <a href="/friends/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-mars"></i> <br />
+            
+            后宫
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-留言板">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pencil"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-rocket"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+
+	  <!--
+      <li class="menu-item search">
+          <form class="search-form">
+            <input name="keyword" type="text" class="search-input" placeholder="站内搜索">
+            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+          </form>
+      </li>
+      <li class="menu-item online"><span id="online-count">?</span>人在线</li>
+	  -->
+	 
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<div class="site-brand-wrapper" >
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <div class="brand">
+        <span class="logo-line-before"><i></i></span>
+        <div class="site-title">
+			<div class="site-master" itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<img class="site-master-avatar" itemprop="image" src="/images/stxw.jpg" alt="stxw" />
+			</div>
+          <div id="animate" class="animate">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+          <div id="guide" class="guide">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+        </div>
+        <span class="logo-line-after"><i></i></span>
+      </div>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<img class="background-image" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/backgound.jpeg" />
+
+
+	<a href="https://github.com/stxw" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub">
+	<svg width="100" height="100" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0; z-index: 4;" aria-hidden="true">
+		<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+		<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+		<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+	</svg>
+</a>
+<style>
+.github-corner:hover .octo-arm{
+	animation:octocat-wave 560ms ease-in-out
+}
+@keyframes octocat-wave{
+	0%,100%{transform:rotate(0)}
+	20%,60%{transform:rotate(-25deg)}
+	40%,80%{transform:rotate(10deg)}
+}
+@media (max-width:500px){
+	.github-corner:hover .octo-arm{
+		animation:none
+	}
+	.github-corner .octo-arm{
+		animation:octocat-wave 560ms ease-in-out
+	}
+}
+</style>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date">
+			<div class="post-month">02月</div>
+			<div class="post-day">18</div>
+	</div>
+  
+  <div class="post-badge">
+    
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index">
+          <span itemprop="name">图像处理</span>
+        </a>
+      </span>
+    
+  </div>
+  
+
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://stxw.ml/image_processing/base_knowledge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stxw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/stxw.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stxw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <p class="post-title" itemprop="name headline">数字图像基础</p>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-18T20:44:55+08:00">
+                2020-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">•</span>
+            <span class="page-pv">本文总阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一些关于数字图像处理的基本知识</p>
+<a id="more"></a>
+
+
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><strong>单色光</strong>：没有颜色的光，单色光的唯一属性是强度。<br><strong>灰度级</strong>：单色光的强度，从黑到白的单色光的度量值范围。<br><strong>灰度图像</strong>：用单色光来表示的图像。</p>
+<p>一幅图像可以用一个矩阵来表示，矩阵中某个元素表示图像在该点的像素，可以是灰度值或RGB值等。<br><strong>空间域</strong>：一幅数字图像的坐标张成的实平面部分。<br><strong>像素</strong>：图像矩阵中的元素，也可以称之为图像单元或图像元素。</p>
+<p><strong>噪声</strong>：存在于图像数据中的不必要的或多余的干扰信息。<br><strong>对比度</strong>：图像中最高和最低灰度级间的灰度差。<br><strong>饱和度</strong>：指图像色彩的纯净程度。</p>
+<p><strong>空间分辨率</strong>：用来度量图像中可辨别的最小细节，，通常用单位距离的线对数或单位距离的点数（像素数）来衡量。<br><strong>dpi</strong>：每英寸点数，通常作为单位距离点数的单位。<br><strong>灰度分辨率</strong>：指灰度级中可分辨的最小变化，用于量化灰度的比特数。例如，通常说一幅被量化为256级的图像有8比特的灰度分辨率。</p>
+<h1 id="像素间的基本关系"><a href="#像素间的基本关系" class="headerlink" title="像素间的基本关系"></a>像素间的基本关系</h1><h2 id="相邻像素"><a href="#相邻像素" class="headerlink" title="相邻像素"></a>相邻像素</h2><p>&emsp;&emsp;<strong>4邻域</strong>：与像素相邻的四个水平和垂直的相邻像素，坐标为$(x,y)$的像素的4邻域坐标为$(x+1,y)、(x-1,y)、(x,y+1)、(x,y-1)$，像素点p的4邻域可以用$N_4(p)$表示。<br>&emsp;&emsp;<strong>D邻域</strong>：与像素相邻的四个对角相邻像素，坐标为$(x,y)$的像素的D邻域坐标为$(x-1,y-1)、(x-1,y+1)、(x+1,y-1)、(x+1,y+1)$，像素点p的4邻域可以用$N_D(p)$表示。<br>&emsp;&emsp;<strong>8邻域</strong>：由像素的4邻域和D邻域组成。像素点p的8邻域可以用$N_8(p)$表示。<br>&emsp;&emsp;位于图像边界的像素点的4邻域、D邻域和8邻域会落入图像的外部。</p>
+<h2 id="邻接性"><a href="#邻接性" class="headerlink" title="邻接性"></a>邻接性</h2><p>&emsp;&emsp;令$V$是定义邻接的灰度值集合，假设像素$p$和$q$的像素值在集合$V$中，像素$p$和$q$的4邻接、8邻接和m邻接定义如下<br>&emsp;&emsp;<strong>4邻接</strong>：如果$q$在$p$的4邻域中，则$p$和$q$是4邻接的。<br>&emsp;&emsp;<strong>8邻接</strong>：如果$q$在$p$的8邻域中，则$p$和$q$是8邻接的。<br>&emsp;&emsp;<strong>m邻接</strong>：如果像素$p$和$q$满足以下两个条件之一，则$p$和$q$是m邻接的。<br>&emsp;&emsp;&emsp;&emsp; 1. $q$在$p$的4邻域中。<br>&emsp;&emsp;&emsp;&emsp; 2. $q$在$p$的D邻域中，且$p$和$q$的4邻域交集中没有没有来自$V$中数值的像素。<br>&emsp;&emsp;m邻接也叫混合邻接，m邻接是8邻接的改进，目的是消除8邻接带来的对角相邻像素之间可能产生的多余的斜向路径。</p>
+<h2 id="连通性"><a href="#连通性" class="headerlink" title="连通性"></a>连通性</h2><p>&emsp;&emsp;<strong>通路</strong>：像素$p$到像素$q$之间的通路是由不同像素组成的一个序列，序列中左右相邻的两个像素之间都是邻接的。可根据不同的邻接类型（4邻接、8邻接、m邻接）定义不同的通路类型（4通路、8通路、m通路），其中8通路可能不唯一。<br>&emsp;&emsp;<strong>连通</strong>：令$S$是图像中的一个像素子集（图像中像素点组成的集合）。如果两个像素$p$和$q$之间存在一条完全由$S$中的像素构成的通路（像素$p$和$q$均在$S$中），那么称像素$p$和$q$在$S$中连通。<br>&emsp;&emsp;<strong>连通分量</strong>：对于$S$中的任意一个像素$p$，在$S$中与像素$p$连通的像素构成的像素集合称为$S$的连通分量。<br>&emsp;&emsp;<strong>连通集</strong>：如果$S$仅有一个连通分量，即$S$中的所有像素互相都连通，则$S$称为连通集。</p>
+<h2 id="区域和边界"><a href="#区域和边界" class="headerlink" title="区域和边界"></a>区域和边界</h2><p>&emsp;&emsp;<strong>区域</strong>：令$R$是图像中的一个像素子集，如果$R$是一个连通集，则称$R$为图像的一个区域。<br>&emsp;&emsp;<strong>邻接区域</strong>：两个区域$R_i$和$R_j$，如果将他们合并后能够形成一个连通集，则称区域$R_i$和$R_j$为邻接区域。不邻接的区域称为不邻接区域。<br>&emsp;&emsp;<strong>边界</strong>：区域$R$的边界（也叫边框或者轮廓）是区域$R$中与$R$的补集邻接的像素点组成的集合。<br>&emsp;&emsp;假设一幅图像中含有$K$个不邻接的区域$R_k,k=1,2,…,K$，且这些区域都不接触图像的边界。令$Ru$表示这$K$个区域的并集，$(Ru)c$表示$Ru$的补集，那么$Ru$称中的所有像素点为图像的前景，$(Ru)c$中的所有像素点为图像的背景。<br>&emsp;&emsp;上述边界的定义有时称为区域的<strong>内边界</strong>，即边界像素是在区域内部。与内边界相区分的是<strong>外边界</strong>，即边界像素在背景区域内。</p>
+<h2 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a>距离度量</h2><p>&emsp;&emsp;设像素点$p$的坐标为$(x_p,y_p)$，$q$的坐标为$(x_q,y_q)$，则$p$和$q$之间的三种距离定义如下。<br>&emsp;&emsp;<strong>欧式距离</strong>：用$D_e(p,q)$来表示。<br>$$D_e(p,q) = \sqrt{(x_p - x_q)^2 + (y_p - y_q)^2}$$</p>
+<p>&emsp;&emsp;在欧式距离度量下，到像素点$(x,y)$的距离小于等于某一特定值$r$的像素都在以$(x,y)$为中心、半径为$r$的圆形区域内。</p>
+<p>&emsp;&emsp;<strong>城市距离</strong>：用$D_4(p,q)$来表示。<br>$$D_4(p,q) = |x_p - x_q| + |y_p - y_q|$$</p>
+<p>&emsp;&emsp;在城市距离度量下，到像素点$(x,y)$的距离小于等于某一特定值$r$的像素形成一个以$(x,y)$为中心的菱形区域。</p>
+<p>&emsp;&emsp;<strong>棋盘距离</strong>：用$D_8(p,q)$来表示。<br>$$D_8(p,q) = max(|x_p - x_q|,|y_p - y_q|)$$</p>
+<p>&emsp;&emsp;在棋盘距离度量下，到像素点$(x,y)$的距离小于等于某一特定值$r$的像素形成一个以$(x,y)$为中心的方形区域。</p>
+<h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="阵列与矩阵操作"><a href="#阵列与矩阵操作" class="headerlink" title="阵列与矩阵操作"></a>阵列与矩阵操作</h2><p>&emsp;&emsp;<strong>阵列操作</strong>：对图像矩阵中每个像素进行操作，比如对图像阵列进行求幂操作，表示对图像矩阵中每个像素都进行求幂。<br>&emsp;&emsp;<strong>矩阵操作</strong>：对图像矩阵进行矩阵的操作，矩阵的操作请参考线性代数里的介绍。<br>&emsp;&emsp;矩阵操作的乘法和阵列操作的乘法不同。<br>&emsp;&emsp;阵列操作的乘法：<br>$$<br>\left[\begin{matrix}<br>    a_{11} &amp; a_{12} \\<br>    a_{21} &amp; a_{22} \\<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>    b_{11} &amp; b_{12} \\<br>    b_{21} &amp; b_{22} \\<br>\end{matrix}\right] =<br>\left[\begin{matrix}<br>    a_{11}b_{11} &amp; a_{12}b_{12} \\<br>    a_{21}b_{21} &amp; a_{22}b_{22} \\<br>\end{matrix}\right]<br>$$</p>
+<p>&emsp;&emsp;矩阵操作的乘法：<br>$$<br>\left[\begin{matrix}<br>    a_{11} &amp; a_{12} \\<br>    a_{21} &amp; a_{22} \\<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>    b_{11} &amp; b_{12} \\<br>    b_{21} &amp; b_{22} \\<br>\end{matrix}\right] =<br>\left[\begin{matrix}<br>    a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \\<br>    a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22} \\<br>\end{matrix}\right]<br>$$</p>
+<h2 id="线性操作"><a href="#线性操作" class="headerlink" title="线性操作"></a>线性操作</h2><p>&emsp;&emsp;图像处理方法最重要的分类依据之一是，它是线性的还是非线性的。考虑一般的算子$H$，该算子对于给定的输入图像$f(x,y)$，产生一幅输出图像$g(x,y)$：<br>$$H[f(x, y)] = g(x, y)$$</p>
+<p>&emsp;&emsp;<strong>加性</strong>：对两个输入的和进行操作得到的输出，与分别对两个输入进行操作后的输出求和得到的结果相同，用公式可表示为：<br>$$H[f_i(x, y) + f_j(x, y)] = H[f_i(x, y)] + H[f_i(x, y)]$$</p>
+<p>&emsp;&emsp;<strong>同质性</strong>：输入乘以一个常数的输出，与原始输入的输出再乘以该常数的结果相同，用公式可表示为：<br>$$H[a \times f(x, y)] = a \times H[f(x, y)]$$</p>
+<p>&emsp;&emsp;<strong>线性操作</strong>：同时满足加性和同质性的操作，线性操作的算子成为线性算子，如果$H$是一个线性算子，则需要满足：<br>$$H[a_if_i(x, y) + a_jf_j(x, y)] = a_iH[f_i(x, y)] + a_jH[f_j(x, y)] = a_ig_i(x, y) + a_jg_j(x, y)$$</p>
+<p>&emsp;&emsp;上式中，$a_i$和$a_j$是任意常数，$f_i(x, y)$和$f_j(x, y)$是任意大小相同的图像。</p>
+<h2 id="算术操作"><a href="#算术操作" class="headerlink" title="算术操作"></a>算术操作</h2><p>&emsp;&emsp;图像间的算术操作是在相应的像素对之间执行的，属于阵列操作，4种算术操作（即像素间加减乘除）表示为：<br>$$<br>s(x, y) = f(x, y) + g(x, y) \\<br>d(x, y) = f(x, y) - g(x, y) \\<br>p(x, y) = f(x, y) \times g(x, y) \\<br>v(x, y) = f(x, y) \div g(x, y)<br>$$</p>
+<p>&emsp;&emsp;上式中$f$和$g$是两张大小相同的图像，计算得到的$s$、$d$、$p$和$v$也是和$f$、$g$大小相同的图像。<br>&emsp;&emsp;<strong>图像相加</strong>后取平均值可以降低图像的噪声。在天文学邻域，由于在非常低的光照下成像常常会导致传感器噪声，以至于单幅图像无法分析。一种降低噪声的方法是对同一个区域（比如某个星系）进行长时间观测，采集多张图片，然后将这多张图像进行算术相加再取平均值，最后得到的图像相比于单张图像会清晰很多。<br>&emsp;&emsp;<strong>图像相减</strong>可以增强两幅近似图像之间的差别，比如观测某一区域的变化过程，可以用采集的图像与第一次采集的图像相减，以增强两幅图像变化比较明显的部分，降低变化比较小的部分。<br>&emsp;&emsp;<strong>图像相乘</strong>的一个重要应用是矫正阴影（这个没看懂T﹏T）。也用来进行模板操作。</p>
+<h2 id="空间操作"><a href="#空间操作" class="headerlink" title="空间操作"></a>空间操作</h2><p>&emsp;&emsp;空间操作直接在给定图像的像素上执行。</p>
+<h3 id="单像素操作"><a href="#单像素操作" class="headerlink" title="单像素操作"></a>单像素操作</h3><p>&emsp;&emsp;单像素操作生成的图像，每个像素是根据原图中相应像素计算得到的。用公式表示是：<br>$$g(x, y) = T[f(x, y)]$$</p>
+<p>&emsp;&emsp;$f(x, y)$表示原图在$(x, y)$处的像素，$T$表示像素的映射函数，$g(x, y)$表示生产图像对应位置的像素。</p>
+<h3 id="领域操作"><a href="#领域操作" class="headerlink" title="领域操作"></a>领域操作</h3><p>&emsp;&emsp;领域操作生成的图像，每个像素是根据原图中相应像素的领域计算得到的。用公式表示是：<br>$$g(x, y) = T[N(f(x, y))]$$</p>
+<p>&emsp;&emsp;$N(f(x, y))$表示图像在$(x, y)$处的领域。</p>
+<h3 id="几何空间变换"><a href="#几何空间变换" class="headerlink" title="几何空间变换"></a>几何空间变换</h3><p>&emsp;&emsp;请参考我的另一篇博客<a href="/image_processing/space_transformation/">图像的几何空间变换</a>。</p>
+<h3 id="图像配准"><a href="#图像配准" class="headerlink" title="图像配准"></a>图像配准</h3><p>&emsp;&emsp;图像几何空间变换利用已知的变换函数，将原图像上的像素映射到目标图像上指定的位置。而图像的配准则是根据原图像和目标图像上某些像素点之间的映射关系，求变换函数。具体的做法是假设变换函数的模型，然后在原图像上取一些点，将这些点的坐标和它们映射在目标图像上对应点的坐标，代入变换函数模型中，求解出变换函数的未知参数，最终得到变换函数。<br>&emsp;&emsp;举个栗子，假设目标图像是原图像通过仿射变换生成的，变换方式如下：<br>$$<br>\left[\begin{matrix} x &amp; y &amp; 1 \end{matrix}\right] =<br>\left[\begin{matrix} v &amp; w &amp; 1 \end{matrix}\right]T =<br>\left[\begin{matrix} v &amp; w &amp; 1 \end{matrix}\right]<br>\left[\begin{matrix}<br>t_{11} &amp; t_{12} &amp; 0 \\<br>t_{21} &amp; t_{22} &amp; 0 \\<br>t_{31} &amp; t_{32} &amp; 1<br>\end{matrix}\right]<br>$$</p>
+<p>&emsp;&emsp;根据这个变换函数可以列出以下两个方程，这个两个方程就是变换函数的模型。<br>$$<br>x = t_{11}v + t_{21}w + t_{31} \\<br>y = t_{12}v + t_{22}w + t_{32}<br>$$</p>
+<p>&emsp;&emsp;然后取原图像上的三个点$(v_1, w_1)$、$(v_2, w_2)$、$(v_3, w_3)$，假设它们在目标图像上对应点的坐标分别是$(x_1, y_1)$、$(x_2, y_2)$、$(x_3, y_3)$，将这六个点的坐标值代入变换函数模型中，可以的到两个三元一次方程组：<br>$$<br>\begin{cases}<br>    x_1 = t_{11}v_1 + t_{21}w_1 + t_{31} \\<br>    x_2 = t_{11}v_2 + t_{21}w_2 + t_{31} \\<br>    x_3 = t_{11}v_3 + t_{21}w_3 + t_{31}<br>\end{cases} \ \ \ \ \ \ \<br>\begin{cases}<br>    y_1 = t_{12}v_1 + t_{22}w_1 + t_{32} \\<br>    y_2 = t_{12}v_2 + t_{22}w_2 + t_{32} \\<br>    y_3 = t_{12}v_3 + t_{22}w_3 + t_{32}<br>\end{cases}<br>$$</p>
+<p>&emsp;&emsp;解出这两个方程组就可以算出$t_{11}、t_{12}、t_{21}、t_{22}、t_{31}、t_{32}$这几个参数，代入模型中就是我们要求的变换函数了。</p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+	  <hr>
+      <div class="post-share">分享到：</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"># 图像处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/acm/hdu-3085/" rel="next" title="HDU-3085 Nightmare Ⅱ">
+                <i class="fa fa-chevron-left"></i> HDU-3085 Nightmare Ⅱ
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/acm/hdu-1067/" rel="prev" title="HDU-1067 Gap">
+                HDU-1067 Gap <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: '6iCAxfaoBsA1LaiU36OQQVya-MdYXbMMI',
+        appKey: 'gVPQRrCwc64fycoMHuq9jfgG',
+        placeholder: '说点什么吧！ (*´∇｀*)',
+        avatar: 'mp',
+        pageSize: '' || 10,
+		meta: ['nick', 'mail', 'link'],
+
+		// 设置Bilibili表情包地址
+		emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+		// 表情title和图片映射
+		emojiMaps: {
+			"tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+			"tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+			"tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+			"tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+			"tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+			"tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+			"tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+			"tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+			"tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+			"tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+			"tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+			"tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+			"tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+			"tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+			"tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+			"tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+			"tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+			"tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+			"tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+			"tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+			"tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+			// ... 更多表情
+		},
+    });
+  </script>
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://api.ixiaowai.cn/mcapi/mcapi.php"
+                alt="stxw" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/stxw" target="_blank" title="GitHub" data-balloon="GitHub" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://wpa.qq.com/msgrd?v=3&uin=1845812298&site=qq&menu=yes" target="_blank" title="QQ" data-balloon="QQ" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-qq"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+            
+
+          </nav>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#像素间的基本关系"><span class="nav-number">2.</span> <span class="nav-text">像素间的基本关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相邻像素"><span class="nav-number">2.1.</span> <span class="nav-text">相邻像素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邻接性"><span class="nav-number">2.2.</span> <span class="nav-text">邻接性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连通性"><span class="nav-number">2.3.</span> <span class="nav-text">连通性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区域和边界"><span class="nav-number">2.4.</span> <span class="nav-text">区域和边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#距离度量"><span class="nav-number">2.5.</span> <span class="nav-text">距离度量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数学基础"><span class="nav-number">3.</span> <span class="nav-text">数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阵列与矩阵操作"><span class="nav-number">3.1.</span> <span class="nav-text">阵列与矩阵操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性操作"><span class="nav-number">3.2.</span> <span class="nav-text">线性操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算术操作"><span class="nav-number">3.3.</span> <span class="nav-text">算术操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间操作"><span class="nav-number">3.4.</span> <span class="nav-text">空间操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单像素操作"><span class="nav-number">3.4.1.</span> <span class="nav-text">单像素操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域操作"><span class="nav-number">3.4.2.</span> <span class="nav-text">领域操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几何空间变换"><span class="nav-number">3.4.3.</span> <span class="nav-text">几何空间变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像配准"><span class="nav-number">3.4.4.</span> <span class="nav-text">图像配准</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <!--<div class="footer-image"></div>-->
+      <div class="footer-inner">
+        <p>
+小破站在各种灾难中苟活了
+	<span id="since"></span>
+	<span class="my-face">o(╥﹏╥)o</span>
+	<a href="/sitemap.xml" target="_blank">RSS</a>
+</p>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数 <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量 <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+	
+		<div class="waifu">
+	<div class="waifu-tips"></div>
+	<canvas id="live2d" height="380" style="width:300px;" ></canvas>
+	<div class="waifu-tool">
+		<i class="fa fa-commenting" ></i>
+		<i class="fa fa-camera" ></i>
+		<i class="fa fa-chevron-down" ></i>
+	</div>
+</div>
+<div class="waifu-show">
+	<i class= "fa fa-chevron-up"></i>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/live2d.js"></script>
+<script>
+	loadlive2d('live2d', "https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/live2d_model/nepnep/index.json");
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/waifu.js"></script>
+
+	
+
+    
+
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/sagiri.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/highlight_tool.js"></script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('2');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

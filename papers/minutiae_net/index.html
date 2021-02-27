@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/social-share.js/1.0.9/css/share.min.css" rel="stylesheet" type="text/css" />
+
+<link href="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/css/main.css?v=0.0.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=0.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/stxw.jpg?v=0.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=0.0.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="论文,指纹识别,深度学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="论文原文下载链接 Abstract（摘要）&amp;emsp;&amp;emsp;提出了一个基于深度神经网络的全自动指纹细节点提取器。  CoarseNet: 粗糙的网络，基于卷积神经网络和指纹领域知识，估计细节点位置和方向。 FineNet: 精细的网络，基于细节点的分数热力图对候选细节点位置进一步优化。  &amp;emsp;&amp;emsp;由于缺乏基于细节点标注的指纹数据集，本文提出的细节点检测方法将有助于训练基于网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robust Minutiae Extractor:Integrating Deep Networks and Fingerprint Domain Knowledge">
+<meta property="og:url" content="http://stxw.ml/papers/minutiae_net/index.html">
+<meta property="og:site_name" content="stxw">
+<meta property="og:description" content="论文原文下载链接 Abstract（摘要）&amp;emsp;&amp;emsp;提出了一个基于深度神经网络的全自动指纹细节点提取器。  CoarseNet: 粗糙的网络，基于卷积神经网络和指纹领域知识，估计细节点位置和方向。 FineNet: 精细的网络，基于细节点的分数热力图对候选细节点位置进一步优化。  &amp;emsp;&amp;emsp;由于缺乏基于细节点标注的指纹数据集，本文提出的细节点检测方法将有助于训练基于网络">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/figure_2.png">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/figure_3.png">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/figure_4.png">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/figure_5.png">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/tabel_2.png">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/table_3.png">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/figure_6.png">
+<meta property="og:image" content="http://stxw.ml/images/paper/minutiae_net/figure_7.png">
+<meta property="article:published_time" content="2020-12-21T08:25:00.000Z">
+<meta property="article:modified_time" content="2021-02-27T13:07:15.397Z">
+<meta property="article:author" content="stxw">
+<meta property="article:tag" content="论文">
+<meta property="article:tag" content="指纹识别">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stxw.ml/images/paper/minutiae_net/figure_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '0.0.4',
+    sidebar: {"position":"right","display":"always","offset":52,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    since: '6/1/2020 00:00:00',
+    onlineAPI: '',
+    site: {
+      title: 'stxw',
+      subtitle: '',
+      author: 'stxw'
+    },
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    leancloud: {
+      enable: false,
+      appID: '',
+      appKey: ''
+    },
+    favicon: {
+      visibilitychange: true,
+      narmal: '/images/stxw.jpg',
+      hidden: '/images/failure.ico',
+      show_text: '(/≧▽≦/)欢迎回来！',
+      hide_text: '(T﹏T)不要走嘛...'
+    },
+	load_to_main: true,
+	img_mirror: {
+      enable: true,
+      prefix: 'https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/'
+	}
+  };
+</script>
+
+
+
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="canonical" href="http://stxw.ml/papers/minutiae_net/"/>
+
+
+
+<script type="text/javascript">
+	/* 自动跳转到主要内容部分（主页除外） */
+	const stxw = {
+		load_to_main: function () {
+			var pathname = window.location.pathname;
+			var pre_pathname = sessionStorage.getItem("pre_pathname");
+			var cur_st = $(document).scrollTop();
+			if (pathname != "/" && cur_st < 10 && pathname != pre_pathname) {
+				$('html, body').animate({
+					scrollTop: $("#main").offset().top - 50
+				}, 500);
+			}
+			sessionStorage.setItem("pre_pathname", pathname);
+		},
+
+		use_img_mirror: function(prefix) {
+			var imgs = document.getElementsByTagName("img");
+			for(var i = 0; i < imgs.length; i++) {
+				img_src = imgs[i].src;
+				ind = img_src.indexOf("images");
+				if(ind >= 0) {
+					imgs[i].src = prefix + img_src.substring(ind);
+				}
+			}
+		}
+	}
+
+	$(function () {
+		if (window.CONFIG.load_to_main) {
+			stxw.load_to_main();
+		}
+		if (window.CONFIG.img_mirror.enable) {
+			stxw.use_img_mirror(window.CONFIG.img_mirror.prefix);
+		}
+	})
+</script>
+
+
+
+  <title>Robust Minutiae Extractor:Integrating Deep Networks and Fingerprint Domain Knowledge | stxw</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="stxw" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-后宫">
+          <a href="/friends/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-mars"></i> <br />
+            
+            后宫
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-留言板">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pencil"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-rocket"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+
+	  <!--
+      <li class="menu-item search">
+          <form class="search-form">
+            <input name="keyword" type="text" class="search-input" placeholder="站内搜索">
+            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+          </form>
+      </li>
+      <li class="menu-item online"><span id="online-count">?</span>人在线</li>
+	  -->
+	 
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<div class="site-brand-wrapper" >
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <div class="brand">
+        <span class="logo-line-before"><i></i></span>
+        <div class="site-title">
+			<div class="site-master" itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<img class="site-master-avatar" itemprop="image" src="/images/stxw.jpg" alt="stxw" />
+			</div>
+          <div id="animate" class="animate">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+          <div id="guide" class="guide">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+        </div>
+        <span class="logo-line-after"><i></i></span>
+      </div>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<img class="background-image" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/backgound.jpeg" />
+
+
+	<a href="https://github.com/stxw" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub">
+	<svg width="100" height="100" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0; z-index: 4;" aria-hidden="true">
+		<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+		<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+		<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+	</svg>
+</a>
+<style>
+.github-corner:hover .octo-arm{
+	animation:octocat-wave 560ms ease-in-out
+}
+@keyframes octocat-wave{
+	0%,100%{transform:rotate(0)}
+	20%,60%{transform:rotate(-25deg)}
+	40%,80%{transform:rotate(10deg)}
+}
+@media (max-width:500px){
+	.github-corner:hover .octo-arm{
+		animation:none
+	}
+	.github-corner .octo-arm{
+		animation:octocat-wave 560ms ease-in-out
+	}
+}
+</style>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date">
+			<div class="post-month">12月</div>
+			<div class="post-day">21</div>
+	</div>
+  
+  <div class="post-badge">
+    
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" itemprop="url" rel="index">
+          <span itemprop="name">论文解读</span>
+        </a>
+      </span>
+    
+  </div>
+  
+
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://stxw.ml/papers/minutiae_net/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stxw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/stxw.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stxw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <p class="post-title" itemprop="name headline">Robust Minutiae Extractor:Integrating Deep Networks and Fingerprint Domain Knowledge</p>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-21T16:25:00+08:00">
+                2020-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">•</span>
+            <span class="page-pv">本文总阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/documnets/papers/MinutiaeNet.pdf" target="_blank" rel="noopener">论文原文下载链接</a></p>
+<h1 id="Abstract（摘要）"><a href="#Abstract（摘要）" class="headerlink" title="Abstract（摘要）"></a>Abstract（摘要）</h1><p>&emsp;&emsp;提出了一个基于深度神经网络的全自动指纹细节点提取器。</p>
+<ul>
+<li><strong>CoarseNet</strong>: 粗糙的网络，基于卷积神经网络和指纹领域知识，估计细节点位置和方向。</li>
+<li><strong>FineNet</strong>: 精细的网络，基于细节点的分数热力图对候选细节点位置进一步优化。</li>
+</ul>
+<p>&emsp;&emsp;由于缺乏基于细节点标注的指纹数据集，本文提出的细节点检测方法将有助于训练基于网络的指纹匹配算法。</p>
+<h1 id="Introduction（介绍）"><a href="#Introduction（介绍）" class="headerlink" title="Introduction（介绍）"></a>Introduction（介绍）</h1><p>&emsp;&emsp;<strong>传统方法</strong>：主要利用指纹领域知识和手工特征提取细节点。在质量好的指纹图像上效果好，但是在质量差的指纹上效果不好，尤其是现场指纹。</p>
+<p>&emsp;&emsp;<strong>深度学习方法</strong>：</p>
+<ul>
+<li>利用滑动窗口等方式，生成细节点的候选块，然后用分类器判断是不是细节点。缺点是比较耗时。</li>
+<li>FingerNet：将传统的细节点提取方法(包括方向场、分割、增强和细节点提取)映射到一个固定权值的网络。结合了指纹的领域知识和深度学习，比较有前景，不过使用的网络结构比较普通，非极大值抑制用的是硬阈值。</li>
+</ul>
+<p><strong>作者的贡献</strong>：</p>
+<ol>
+<li>提出了一种基于网络的细节点自动提取器，利用领域知识提供可靠的细节点位置和方向，不需要调硬阈值。</li>
+<li>一个鲁棒的基于块的细节点分类器，显著提高了候选块精度和召回率。这可以作为一个鲁棒的，带有紧凑细节点特征的细节点提取器。</li>
+<li>提出了一种非极大值抑制方法，用来获取候选块的精确位置。在FVC 2004和NIST SD27的实验评估表明，该方法在精度、召回率和F1分数等方面优于已发表的方法。</li>
+</ol>
+<h1 id="Proposed-framework（提出的框架）"><a href="#Proposed-framework（提出的框架）" class="headerlink" title="Proposed framework（提出的框架）"></a>Proposed framework（提出的框架）</h1><p>&emsp;&emsp;提出了一个新的框架，结合指纹领域知识的深度神经网络来提取细节点，包括两个模块。</p>
+<ul>
+<li><strong>CoarseNet</strong>: 基于残差学习的卷积神经网络，从输入指纹图像中生成包含细节的候选。以指纹图像为初始输入，以相应的增强图像、分割图、方向场作为次级输入，生成细节点分数图。通过与指纹方向场的比较，估计指纹的细节点方向。</li>
+<li><strong>FineNet</strong>: 基于inception-resnet的细节点分类器，对CoarseNet输出的候选块进行分类。对每一个以候选细节点为中心的正方形区域进行处理，优化细节点分数图，回归细节点的方向。将分类结果作为最后得到的细节点。</li>
+</ul>
+<p><img src="/images/paper/minutiae_net/figure_2.png" alt="" title="图2 提出的自动细节点提取结构。CoarseNet以完整指纹图像作为输入，FineNet对CoarseNet输出的细节点块进行处理"></p>
+<h2 id="CoarseNet-for-minutiae-extraction（提取细节点的粗网）"><a href="#CoarseNet-for-minutiae-extraction（提取细节点的粗网）" class="headerlink" title="CoarseNet for minutiae extraction（提取细节点的粗网）"></a>CoarseNet for minutiae extraction（提取细节点的粗网）</h2><p><img src="/images/paper/minutiae_net/figure_3.png" alt="" title="图3 CoarseNet的结构"><br>&emsp;&emsp;将深度神经网络和领域知识结合。先生成指纹的分割图、方向图和增强图这些附产物，再根据这些附产物生成细节点分数图。目的是让模型更加鲁棒。</p>
+<h3 id="Segmentation-and-orientation-feature-sharing（分割和方向场特征共享）"><a href="#Segmentation-and-orientation-feature-sharing（分割和方向场特征共享）" class="headerlink" title="Segmentation and orientation feature sharing（分割和方向场特征共享）"></a>Segmentation and orientation feature sharing（分割和方向场特征共享）</h3><p>&emsp;&emsp;网络结构特点：</p>
+<ul>
+<li>使用更深的残差结构来提取多尺度特征。</li>
+<li>使用ASPP网络来融合网络的多层次输出，可以得到输入图像中各层次对应区域的概率图。</li>
+</ul>
+<p>&emsp;&emsp;在CoarseNet中，指纹的分割和方向场估计共享卷积层。在进行方向场估计的时候，使用了Dictionary-based方法与CoarseNet的方向场预测融合，作为最后的方向场输出，融合权重比例1:3。</p>
+<h3 id="Candidate-generation（候选生成）"><a href="#Candidate-generation（候选生成）" class="headerlink" title="Candidate generation（候选生成）"></a>Candidate generation（候选生成）</h3><p><img src="/images/paper/minutiae_net/figure_4.png" alt="" title="图4 候选块的处理映射。分数图的级别越低，它提供的细节就越多"><br>&emsp;&emsp;利用方向场和增强模块，将输入的原始图像增强，得到指纹的增强图，然后将增强图和分割图结合，作为细节点提取网络的输入。<br>&emsp;&emsp;细节点提取网络也用了残差结构和多层次结构。将第4层的分数图作为粗定位，将低层次的分数图作为精确定位。</p>
+<h3 id="Non-maximum-suppression（非极大值抑制）"><a href="#Non-maximum-suppression（非极大值抑制）" class="headerlink" title="Non-maximum suppression（非极大值抑制）"></a>Non-maximum suppression（非极大值抑制）</h3><p>&emsp;&emsp;常用的方法：对候选列表按分数排序，计算每个点对两两之间的位置和方向的L2距离，然后迭代的方法，将每个候选和列表里的其他候选比较，保留位置和方向的L2距离超过阈值，且分数高的候选。<br>&emsp;&emsp;作者提出的方法：对候选列表按分数排序，保留分数高的点，去掉分数比原先已选择的候选低，且与已选择的候选重叠区域超过50%的点。</p>
+<h3 id="Training-data-for-CoarseNet（粗网的训练数据）"><a href="#Training-data-for-CoarseNet（粗网的训练数据）" class="headerlink" title="Training data for CoarseNet（粗网的训练数据）"></a>Training data for CoarseNet（粗网的训练数据）</h3><p>&emsp;&emsp;训练分割和方向场模块时使用弱标签，细节点提取部分采用两个库的ground truth标签，使用了数据增强。</p>
+<h2 id="FineNet（细网）"><a href="#FineNet（细网）" class="headerlink" title="FineNet（细网）"></a>FineNet（细网）</h2><p>&emsp;&emsp;虽然粗网是可靠的，但它仍然不能识别真实的细节点或识别伪细节点。所以需要使用FineNet，一个对生成的候选块进行分类的细节点分类器。FineNet将CoarseNet输出的候选细节点作为输入，判读对应的10×10中心区域是否是个有效的细节点。</p>
+<h3 id="FineNet-architecture（细网结构）"><a href="#FineNet-architecture（细网结构）" class="headerlink" title="FineNet architecture（细网结构）"></a>FineNet architecture（细网结构）</h3><p><img src="/images/paper/minutiae_net/figure_5.png" alt="" title="图5 FineNet的架构。关于inception-resnet v1 块结构的详细信息，请参阅[20]"></p>
+<p>&emsp;&emsp;FineNet的输入。提取了相同数量的细节和非细节块，大小为$t_1 \times t_1$，$t_1 = 45$。将提取的这些块，缩放成$t_2 \times t_2$的图像，这里$t_2 = 160$，之所以放大成160，是因为，图像太小无法训练复杂的网络结构，图像缩放太大会模糊一些微小的细节。<br>&emsp;&emsp;FineNet的训练数据。正样本是基于ground truth的细节点位置提取的块，负样本是随机采样的非细节点位置提取的块，负样本的中心区域(10×10)不包含部分或全部的细节点位置。使用了批量归一化、旋转、镜像、尺度变换和边界模糊等预处理方法。</p>
+<h3 id="Losses-and-implementation-details（loss函数和实施细节）"><a href="#Losses-and-implementation-details（loss函数和实施细节）" class="headerlink" title="Losses and implementation details（loss函数和实施细节）"></a>Losses and implementation details（loss函数和实施细节）</h3><p>&emsp;&emsp;<strong>Intra-Inter分类损失</strong>（Intra-Inter class losses）：使用Center Loss[25]作为softmax loss的补充。softmax loss倾向于拉大不同类别特征的区别，而center loss倾向于将同一类别的特征拉的更近。具体的loss计算公式：<br>$$<br>L = \alpha L_C + (1 - \alpha) L_S + \beta L_O<br>$$</p>
+<p>$L$是总的loss，$L_C$是center loss，$L_S$是softmax loss，$L_O$是细节点方向loss。<br>$\alpha$和$\beta$是各个loss的平衡常数，$\alpha = 0.5$，$\beta = 2$。</p>
+<p>&emsp;&emsp;<strong>参数设置</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">网络参数初始化</td>
+<td align="left">$N(0, 0.01)$的随机高斯分布</td>
+</tr>
+<tr>
+<td align="left">batch size</td>
+<td align="left">100</td>
+</tr>
+<tr>
+<td align="left">学习率</td>
+<td align="left">初始学习率0.1，每迭代5万次除以10</td>
+</tr>
+<tr>
+<td align="left">最大迭代次数</td>
+<td align="left">20万</td>
+</tr>
+<tr>
+<td align="left">动量</td>
+<td align="left">0.9</td>
+</tr>
+<tr>
+<td align="left">权重衰减</td>
+<td align="left">0.0004</td>
+</tr>
+</tbody></table>
+<h1 id="Experimental-results（实验结果）"><a href="#Experimental-results（实验结果）" class="headerlink" title="Experimental results（实验结果）"></a>Experimental results（实验结果）</h1><h2 id="Datasets（数据集）"><a href="#Datasets（数据集）" class="headerlink" title="Datasets（数据集）"></a>Datasets（数据集）</h2><p>&emsp;&emsp;CoarseNet的训练数据包括FVC 2002数据集和用其增强后的数据，共8000张图像。FineNet的训练数据包括100K个细节点和非细节点块。</p>
+<h2 id="Evaluation（评估）"><a href="#Evaluation（评估）" class="headerlink" title="Evaluation（评估）"></a>Evaluation（评估）</h2><p>&emsp;&emsp;评估的数据库是FVC 2004和NIST SD27。用$(l_p, o_p)$表示预测的细节点坐标和方向，$(l_{gt}, o_{gt})$表示ground truth细节点。如果预测的细节点满足以下条件，说明预测正确。<br>$$<br>\begin{cases}<br>    \parallel l_p - l_{gt} \parallel_2 \leq D \\<br>    \parallel o_p - o_{gt} \parallel_1 \leq O<br>\end{cases}<br>$$</p>
+<p>&emsp;&emsp;$D$和$O$是位置偏差和角度偏差的阈值。<br>&emsp;&emsp;表2统计了$(D = 8, O = 10)$、$(D = 12, O = 20)$、$(D = 16, O = 30)$的准确率、召回率和F1分数。<br><img src="/images/paper/minutiae_net/tabel_2.png" alt="" title="表2 不同的细节提取方法在FVC 2004和NIST SD27数据集的比较"></p>
+<p>&emsp;&emsp;表3是使用FingerNet的非极大值抑制(NMS)和作者提出的非极大值抑制(NMS*)的比对，对比数据库是NIST SD27。<br><img src="/images/paper/minutiae_net/table_3.png" alt="" title="表3 两种非极大值抑制方法的比较"></p>
+<p>&emsp;&emsp;图6是不同方法的准确率和召回率曲线对比。<br><img src="/images/paper/minutiae_net/figure_6.png" alt="" title="图6 不同方法的准确率和召回率曲线对比"></p>
+<p>&emsp;&emsp;图7是细节点提取的效果图。<br><img src="/images/paper/minutiae_net/figure_7.png" alt="" title="图7 细节点提取的效果图"></p>
+<p>&emsp;&emsp;在某些情况下，提议的框架会遗漏了真细节点，或者提取了伪细节点。由于脊线的不连续，导致一些细节点检测错误(图像a)，或者由于细节点的位置靠近指纹边缘而漏检(图像c)。对于NIST SD27数据集的潜在指纹，该方法对严重的背景噪声(图像exiang指纹质量(图像g)比较敏感。对于FVC 2004数据集和NIST SD27数据集的滚动指纹，得到了接近ground truth的结果。<br>&emsp;&emsp;NIST SD27每张图片的运行时间约为1.5秒，FVC 2004每张图片的运行时间约为1.2秒。</p>
+<h1 id="Conclusions（总结）"><a href="#Conclusions（总结）" class="headerlink" title="Conclusions（总结）"></a>Conclusions（总结）</h1><p>&emsp;&emsp;提出了两个细节点提取网络：CoarseNet和FineNet。提出了一个非极大抑制方法。</p>
+<p>改进的地方：</p>
+<ol>
+<li>使用更大的包括现场指纹的训练集来训练。</li>
+<li>构建背景描述符来利用细节点周围的区域。</li>
+<li>改进处理时间。</li>
+<li>将细节点提取器整合到端到端指纹匹配框架中。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+	  <hr>
+      <div class="post-share">分享到：</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AE%BA%E6%96%87/" rel="tag"># 论文</a>
+          
+            <a href="/tags/%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB/" rel="tag"># 指纹识别</a>
+          
+            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/live/assemble_computer/" rel="next" title="装的第一台电脑">
+                <i class="fa fa-chevron-left"></i> 装的第一台电脑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/papers/Segmentation_and_Enhancement_of_Latent_Fingerprints/" rel="prev" title="Segmentation and Enhancement of Latent Fingerprints: A Coarse to Fine Ridge Structure Dictionary">
+                Segmentation and Enhancement of Latent Fingerprints: A Coarse to Fine Ridge Structure Dictionary <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: '6iCAxfaoBsA1LaiU36OQQVya-MdYXbMMI',
+        appKey: 'gVPQRrCwc64fycoMHuq9jfgG',
+        placeholder: '说点什么吧！ (*´∇｀*)',
+        avatar: 'mp',
+        pageSize: '' || 10,
+		meta: ['nick', 'mail', 'link'],
+
+		// 设置Bilibili表情包地址
+		emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+		// 表情title和图片映射
+		emojiMaps: {
+			"tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+			"tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+			"tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+			"tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+			"tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+			"tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+			"tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+			"tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+			"tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+			"tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+			"tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+			"tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+			"tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+			"tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+			"tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+			"tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+			"tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+			"tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+			"tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+			"tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+			"tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+			// ... 更多表情
+		},
+    });
+  </script>
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://api.ixiaowai.cn/mcapi/mcapi.php"
+                alt="stxw" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/stxw" target="_blank" title="GitHub" data-balloon="GitHub" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://wpa.qq.com/msgrd?v=3&uin=1845812298&site=qq&menu=yes" target="_blank" title="QQ" data-balloon="QQ" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-qq"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+            
+
+          </nav>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract（摘要）"><span class="nav-number">1.</span> <span class="nav-text">Abstract（摘要）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction（介绍）"><span class="nav-number">2.</span> <span class="nav-text">Introduction（介绍）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Proposed-framework（提出的框架）"><span class="nav-number">3.</span> <span class="nav-text">Proposed framework（提出的框架）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CoarseNet-for-minutiae-extraction（提取细节点的粗网）"><span class="nav-number">3.1.</span> <span class="nav-text">CoarseNet for minutiae extraction（提取细节点的粗网）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Segmentation-and-orientation-feature-sharing（分割和方向场特征共享）"><span class="nav-number">3.1.1.</span> <span class="nav-text">Segmentation and orientation feature sharing（分割和方向场特征共享）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Candidate-generation（候选生成）"><span class="nav-number">3.1.2.</span> <span class="nav-text">Candidate generation（候选生成）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Non-maximum-suppression（非极大值抑制）"><span class="nav-number">3.1.3.</span> <span class="nav-text">Non-maximum suppression（非极大值抑制）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-data-for-CoarseNet（粗网的训练数据）"><span class="nav-number">3.1.4.</span> <span class="nav-text">Training data for CoarseNet（粗网的训练数据）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FineNet（细网）"><span class="nav-number">3.2.</span> <span class="nav-text">FineNet（细网）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FineNet-architecture（细网结构）"><span class="nav-number">3.2.1.</span> <span class="nav-text">FineNet architecture（细网结构）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Losses-and-implementation-details（loss函数和实施细节）"><span class="nav-number">3.2.2.</span> <span class="nav-text">Losses and implementation details（loss函数和实施细节）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experimental-results（实验结果）"><span class="nav-number">4.</span> <span class="nav-text">Experimental results（实验结果）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Datasets（数据集）"><span class="nav-number">4.1.</span> <span class="nav-text">Datasets（数据集）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation（评估）"><span class="nav-number">4.2.</span> <span class="nav-text">Evaluation（评估）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conclusions（总结）"><span class="nav-number">5.</span> <span class="nav-text">Conclusions（总结）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <!--<div class="footer-image"></div>-->
+      <div class="footer-inner">
+        <p>
+小破站在各种灾难中苟活了
+	<span id="since"></span>
+	<span class="my-face">o(╥﹏╥)o</span>
+	<a href="/sitemap.xml" target="_blank">RSS</a>
+</p>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数 <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量 <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+	
+		<div class="waifu">
+	<div class="waifu-tips"></div>
+	<canvas id="live2d" height="380" style="width:300px;" ></canvas>
+	<div class="waifu-tool">
+		<i class="fa fa-commenting" ></i>
+		<i class="fa fa-camera" ></i>
+		<i class="fa fa-chevron-down" ></i>
+	</div>
+</div>
+<div class="waifu-show">
+	<i class= "fa fa-chevron-up"></i>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/live2d.js"></script>
+<script>
+	loadlive2d('live2d', "https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/live2d_model/nepnep/index.json");
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/waifu.js"></script>
+
+	
+
+    
+
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/sagiri.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/highlight_tool.js"></script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('2');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

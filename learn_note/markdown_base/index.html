@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/social-share.js/1.0.9/css/share.min.css" rel="stylesheet" type="text/css" />
+
+<link href="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/css/main.css?v=0.0.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=0.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/stxw.jpg?v=0.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=0.0.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="markdown," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="从网上收集的markdown语法教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown语法教程">
+<meta property="og:url" content="http://stxw.ml/learn_note/markdown_base/index.html">
+<meta property="og:site_name" content="stxw">
+<meta property="og:description" content="从网上收集的markdown语法教程">
+<meta property="og:image" content="http://stxw.ml/images/learn_note/markdown_base/1581056192563.png">
+<meta property="og:image" content="http://stxw.ml/images/learn_note/markdown_base/1581056288407.png">
+<meta property="og:image" content="http://stxw.ml/learn_note/markdown_base/%E9%94%99%E8%AF%AF%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80">
+<meta property="og:image" content="http://stxw.ml/images/learn_note/markdown_base/nepnep.png">
+<meta property="og:image" content="http://stxw.ml/images/learn_note/markdown_base/nepnep.png">
+<meta property="article:published_time" content="2020-02-07T05:00:05.000Z">
+<meta property="article:modified_time" content="2021-02-27T13:07:15.397Z">
+<meta property="article:author" content="stxw">
+<meta property="article:tag" content="markdown">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stxw.ml/images/learn_note/markdown_base/1581056192563.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '0.0.4',
+    sidebar: {"position":"right","display":"always","offset":52,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    since: '6/1/2020 00:00:00',
+    onlineAPI: '',
+    site: {
+      title: 'stxw',
+      subtitle: '',
+      author: 'stxw'
+    },
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    leancloud: {
+      enable: false,
+      appID: '',
+      appKey: ''
+    },
+    favicon: {
+      visibilitychange: true,
+      narmal: '/images/stxw.jpg',
+      hidden: '/images/failure.ico',
+      show_text: '(/≧▽≦/)欢迎回来！',
+      hide_text: '(T﹏T)不要走嘛...'
+    },
+	load_to_main: true,
+	img_mirror: {
+      enable: true,
+      prefix: 'https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/'
+	}
+  };
+</script>
+
+
+
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="canonical" href="http://stxw.ml/learn_note/markdown_base/"/>
+
+
+
+<script type="text/javascript">
+	/* 自动跳转到主要内容部分（主页除外） */
+	const stxw = {
+		load_to_main: function () {
+			var pathname = window.location.pathname;
+			var pre_pathname = sessionStorage.getItem("pre_pathname");
+			var cur_st = $(document).scrollTop();
+			if (pathname != "/" && cur_st < 10 && pathname != pre_pathname) {
+				$('html, body').animate({
+					scrollTop: $("#main").offset().top - 50
+				}, 500);
+			}
+			sessionStorage.setItem("pre_pathname", pathname);
+		},
+
+		use_img_mirror: function(prefix) {
+			var imgs = document.getElementsByTagName("img");
+			for(var i = 0; i < imgs.length; i++) {
+				img_src = imgs[i].src;
+				ind = img_src.indexOf("images");
+				if(ind >= 0) {
+					imgs[i].src = prefix + img_src.substring(ind);
+				}
+			}
+		}
+	}
+
+	$(function () {
+		if (window.CONFIG.load_to_main) {
+			stxw.load_to_main();
+		}
+		if (window.CONFIG.img_mirror.enable) {
+			stxw.use_img_mirror(window.CONFIG.img_mirror.prefix);
+		}
+	})
+</script>
+
+
+
+  <title>Markdown语法教程 | stxw</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="stxw" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-后宫">
+          <a href="/friends/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-mars"></i> <br />
+            
+            后宫
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-留言板">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pencil"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-rocket"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+
+	  <!--
+      <li class="menu-item search">
+          <form class="search-form">
+            <input name="keyword" type="text" class="search-input" placeholder="站内搜索">
+            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+          </form>
+      </li>
+      <li class="menu-item online"><span id="online-count">?</span>人在线</li>
+	  -->
+	 
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<div class="site-brand-wrapper" >
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <div class="brand">
+        <span class="logo-line-before"><i></i></span>
+        <div class="site-title">
+			<div class="site-master" itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<img class="site-master-avatar" itemprop="image" src="/images/stxw.jpg" alt="stxw" />
+			</div>
+          <div id="animate" class="animate">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+          <div id="guide" class="guide">
+            <span>s</span><span>t</span><span>x</span><span>w</span>
+          </div>
+        </div>
+        <span class="logo-line-after"><i></i></span>
+      </div>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<img class="background-image" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/backgound.jpeg" />
+
+
+	<a href="https://github.com/stxw" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub">
+	<svg width="100" height="100" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0; z-index: 4;" aria-hidden="true">
+		<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+		<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+		<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+	</svg>
+</a>
+<style>
+.github-corner:hover .octo-arm{
+	animation:octocat-wave 560ms ease-in-out
+}
+@keyframes octocat-wave{
+	0%,100%{transform:rotate(0)}
+	20%,60%{transform:rotate(-25deg)}
+	40%,80%{transform:rotate(10deg)}
+}
+@media (max-width:500px){
+	.github-corner:hover .octo-arm{
+		animation:none
+	}
+	.github-corner .octo-arm{
+		animation:octocat-wave 560ms ease-in-out
+	}
+}
+</style>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date">
+			<div class="post-month">02月</div>
+			<div class="post-day">07</div>
+	</div>
+  
+  <div class="post-badge">
+    
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+          <span itemprop="name">学习笔记</span>
+        </a>
+      </span>
+    
+  </div>
+  
+
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://stxw.ml/learn_note/markdown_base/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stxw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/stxw.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stxw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <p class="post-title" itemprop="name headline">Markdown语法教程</p>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-07T13:00:05+08:00">
+                2020-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">•</span>
+            <span class="page-pv">本文总阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从网上收集的markdown语法教程</p>
+<a id="more"></a>
+
+
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>&emsp;&emsp;前两天用Gridea和Github Pages搭好了我的博客，不得不说，这两个都是好东西，而且都是免费的。Gridea用来搭建个人博客容易，而且人性化，适合像我这样的菜鸟上手，Github Pages提供平台展示博客。在这里感谢一下<a href="https://gridea.dev/" target="_blank" rel="noopener">Gridea</a>和<a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a>的开发者们。<br>&emsp;&emsp;Gridea支持Markdown语法，我这个菜鸟又不会，所以打算学一下，顺便写一篇介绍基本语法的博文，作为我的第一篇博文，下面进入正题吧！</p>
+<h1 id="Markdown简介"><a href="#Markdown简介" class="headerlink" title="Markdown简介"></a>Markdown简介</h1><p>&emsp;&emsp;Markdown 语言由约翰·格鲁伯(John Gruber)于2004年创建，是一种轻量级标记语言。Markdown允许人们使用易读易写的纯文本来编写带样式的文档，有点类似html，不过它比html简单一些。Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。使用Markdown 编写的文档后缀为 .md, .markdown，比如github仓库里的README.md文档。</p>
+<p>&emsp;&emsp;关于Markdown的编辑器，可分为以下三类：</p>
+<ol>
+<li>平台集成工具：各大在线博客、社区平台自带的写作工具，比如CSDN、博客园、简书等。</li>
+<li>独立软件类：在本地上使用的独立软件，可以编辑本地文件，比如Typora、Haroopad等。</li>
+<li>插件类：有些编辑器安装相应的插件，可以具有Markdown的功能，比如Atom、VS code、Sublime Text等。</li>
+</ol>
+<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>&emsp;&emsp;标题可以使用两种方式来设置，一种是用“=”和“-”，一种是用“#”。</p>
+<ol>
+<li>使用“=”和“-”符号，在标题的下一行加一个“=”，就会有一级标题的效果，如果加“-”的话就是二级标题。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 一级标题</span><br><span class="line">&#x3D;</span><br><span class="line">二级标题</span><br><span class="line">-</span><br></pre></td></tr></table></figure>
+效果如下：</li>
+</ol>
+<p><img src="/images/learn_note/markdown_base/1581056192563.png" alt=""></p>
+<p>&emsp;&emsp;需要注意的是，使用这种方式的标题，上一行如果是普通文本，两行之间要加一个换行，不然上一行文本也会有标题的样式。</p>
+<ol start="2">
+<li>使用“#”符号，在标题的前面加“#”符号就好了，加几个“#”就代表几级标题，最多支持6级标题。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
+效果如下：</li>
+</ol>
+<p><img src="/images/learn_note/markdown_base/1581056288407.png" alt=""></p>
+<h1 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h1><h2 id="简单字体"><a href="#简单字体" class="headerlink" title="简单字体"></a>简单字体</h2><p>Markdown 可以使用以下几种字体：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*斜体文本*</span><br><span class="line">_斜体文本_</span><br><span class="line">**粗体文本**</span><br><span class="line">__粗体文本__</span><br><span class="line">***粗斜体文本***</span><br><span class="line">___粗斜体文本___</span><br><span class="line">&lt;u&gt;带下划线文本&lt;&#x2F;u&gt;</span><br><span class="line">~~带删除线文本~~</span><br></pre></td></tr></table></figure>
+<p>效果如下：<br>&emsp;&emsp; <em>斜体文本</em><br>&emsp;&emsp; <em>斜体文本</em><br>&emsp;&emsp; <strong>粗体文本</strong><br>&emsp;&emsp; <strong>粗体文本</strong><br>&emsp;&emsp; <strong><em>粗斜体文本</em></strong><br>&emsp;&emsp; <strong><em>粗斜体文本</em></strong><br>&emsp;&emsp; <u>带下划线文本</u><br>&emsp;&emsp; <del>带删除线文本</del></p>
+<h2 id="自定义字体"><a href="#自定义字体" class="headerlink" title="自定义字体"></a>自定义字体</h2><p>Markdown的最初目标就是为纯写作而生的，因此，它并没有考虑文字的更多样式。如果想使用更多字体样式，可以借助html的font标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;font color&#x3D;red&gt;红色字体&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font size&#x3D;6&gt;6号字体&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;red size&#x3D;6&gt;6号红色字体&lt;&#x2F;font&gt;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p>&emsp;&emsp; <font color=red>红色字体</font></p>
+<p>&emsp;&emsp; <font size=6>6号字体</font></p>
+<p>&emsp;&emsp; <font color=red size=6>6号红色字体</font></p>
+<h1 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h1><p>Markdown不能直接用键盘输入的空格和回车来表示空格，需要用特殊符号。<br><code>&amp;ensp;</code>或<code>&amp;#8194;</code>表示半角空格(En Space)，占一个字符，相当于半个汉字的长度。<br><code>&amp;emsp;</code>或<code>&amp;#8195;</code>表示全角空格(Em Space)，占两个字符，相当于一个汉字的长度。<br><code>&amp;nbsp;</code>或<code>&amp;#160;</code>不换行空格(No-Break Space)，占一个字符，相当于一个字符”n”的长度。<br>半角空格和全角空格推荐在中文里使用，不换行空格推荐在英文里使用。</p>
+<h1 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h1><p>markdown里敲多个换行只能显示一个，如果想显示多个换行，需要用<code>&lt;br&gt;</code>或者<code>&lt;br/&gt;</code>来表示。</p>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p>引用的文字段落会高亮显示，方法是在文字开头加”&gt;”符号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; 最外层</span><br><span class="line">&gt;&gt; 第一层嵌套</span><br><span class="line">&gt;&gt;&gt; 第二层嵌套</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>最外层</p>
+<blockquote>
+<p>第一层嵌套</p>
+<blockquote>
+<p>第二层嵌套</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><h2 id="简单图片"><a href="#简单图片" class="headerlink" title="简单图片"></a>简单图片</h2><p>如果是想简单的显示图片，使用以下方式就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](图片地址)</span><br></pre></td></tr></table></figure>
+<p>图片链接地址可以是本地图片文件地址，也可以是网络图片地址。</p>
+<p>也可以给图片添加说明和标题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![图片说明文字](图片链接地址 &quot;图片标题&quot;)</span><br></pre></td></tr></table></figure>
+<p>图片说明文字会在图片无法加载时显示，图片正常加载时说明文字不显示，下面是一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![这是一张无法加载的图片](错误的图片地址 &quot;title&quot;)</span><br></pre></td></tr></table></figure>
+<p>显示为<br><img src="%E9%94%99%E8%AF%AF%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80" alt="这是一张无法加载的图片" title="title"><br>如果图片有标题，当鼠标停在图片上时会显示出来，即使图片无法加载，鼠标停靠时也会显示，下面是一个例子，请读者自行尝试。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![涅普迪努](&#x2F;images&#x2F;learn_note&#x2F;markdown_base&#x2F;nepnep.png &quot;我可爱吗^_^&quot;)</span><br></pre></td></tr></table></figure>
+<p><img src="/images/learn_note/markdown_base/nepnep.png" alt="涅普迪努" title="我可爱吗^_^"></p>
+<h2 id="自定义图片"><a href="#自定义图片" class="headerlink" title="自定义图片"></a>自定义图片</h2><p>Markdown无法自定义图片的宽度和高度，如果想改变的话需要借助html的img标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img width&#x3D;100 height&#x3D;160 src&#x3D;&quot;https:&#x2F;&#x2F;stxw.ml&#x2F;images&#x2F;learn_note&#x2F;markdown_base&#x2F;nepnep.png&quot; title&#x3D;&quot;我是变小后的涅普迪努&quot;&gt;&lt;&#x2F;img&gt;</span><br></pre></td></tr></table></figure>
+<p>下面是一张100×160的图片<br><img width=100 height=160 src="/images/learn_note/markdown_base/nepnep.png" title="我是变小后的涅普迪努"></img></p>
+<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><h2 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h2><p>markdown可以使用两种方法创建链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[链接名称](链接地址)</span><br><span class="line">&lt;链接地址&gt;</span><br></pre></td></tr></table></figure>
+<p>以github主页为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[github](https:&#x2F;&#x2F;github.com)</span><br><span class="line">&lt;https:&#x2F;&#x2F;github.com&gt;</span><br></pre></td></tr></table></figure>
+<p>效果如下：<br><a href="https://github.com" target="_blank" rel="noopener">github</a><br><a href="https://github.com" target="_blank" rel="noopener">https://github.com</a></p>
+<h2 id="内部链接"><a href="#内部链接" class="headerlink" title="内部链接"></a>内部链接</h2><p>可以使用内部链接跳转到本文内某个标题的位置，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[链接名字][#标题名字]</span><br></pre></td></tr></table></figure>
+<p>比如想跳转转到本文的“Markdown简介”的位置，可以用下面的代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Markdown简介](#Markdown简介)</span><br></pre></td></tr></table></figure>
+<p><a href="#Markdown简介">Markdown简介</a></p>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>无序列表使用星号(*)、加号(+)或是减号(-)作为列表标记：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">* 第一项</span><br><span class="line">* 第二项</span><br><span class="line">* 第三项</span><br><span class="line"></span><br><span class="line">+ 第一项</span><br><span class="line">+ 第二项</span><br><span class="line">+ 第三项</span><br><span class="line"></span><br><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br><span class="line">- 第三项</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p>有序列表使用数字并加上 . 号来表示，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 第一项</span><br><span class="line">2. 第二项</span><br><span class="line">3. 第三项</span><br></pre></td></tr></table></figure>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ol>
+<p>markdown会对数字重新按顺序编号，比如下面代码显示的编号任然是1.2.3.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 第一项</span><br><span class="line">1. 第二项</span><br><span class="line">237. 第三项</span><br></pre></td></tr></table></figure>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ol>
+<h2 id="嵌套列表"><a href="#嵌套列表" class="headerlink" title="嵌套列表"></a>嵌套列表</h2><p>列表嵌套只需在子列表中的选项添加四个空格即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 第一项：</span><br><span class="line">    - 第一项嵌套的第一个元素</span><br><span class="line">    - 第一项嵌套的第二个元素</span><br><span class="line">2. 第二项：</span><br><span class="line">    - 第二项嵌套的第一个元素</span><br><span class="line">    - 第二项嵌套的第二个元素</span><br></pre></td></tr></table></figure>
+<ol>
+<li>第一项：<ul>
+<li>第一项嵌套的第一个元素</li>
+<li>第一项嵌套的第二个元素</li>
+</ul>
+</li>
+<li>第二项：<ul>
+<li>第二项嵌套的第一个元素</li>
+<li>第二项嵌套的第二个元素</li>
+</ul>
+</li>
+</ol>
+<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><p>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。<br>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|  表头   | 表头  |</span><br><span class="line">|  ----  | ----  |</span><br><span class="line">| 单元格  | 单元格 |</span><br><span class="line">| 单元格  | 单元格 |</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody></table>
+<p>设置表格的对齐方式：</p>
+<ul>
+<li>-: 设置内容和标题栏居右对齐。</li>
+<li>:- 设置内容和标题栏居左对齐。</li>
+<li>:-: 设置内容和标题栏居中对齐。</li>
+</ul>
+<p>实例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 左对齐的一列 | 右对齐的一列 | 居中对齐的一列 |</span><br><span class="line">| :----| ----: | :----: |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br></pre></td></tr></table></figure>
+<p> 显示效果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">左对齐的一列</th>
+<th align="right">右对齐的一列</th>
+<th align="center">居中对齐的一列</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+</tbody></table>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="代码片段"><a href="#代码片段" class="headerlink" title="代码片段"></a>代码片段</h2><p>代码片段可以用一个或两个反引号”`“包起来，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c语言常用&#96;scanf()&#96;和&#96;&#96;printf()&#96;&#96;函数来输入输出。</span><br></pre></td></tr></table></figure>
+<p>显示为：c语言常用<code>scanf()</code>和<code>printf()</code>函数来输入输出。</p>
+<h2 id="代码段落"><a href="#代码段落" class="headerlink" title="代码段落"></a>代码段落</h2><p>代码段落可以用三个反引号”```”或三个”~~~”来显示(三个以上也可以)，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, int argv[])</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;hello world!\n&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
+<p>显示为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, int argv[])</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;hello world!\n&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在前面的三个反引号后面加入编程语言的关键字，还可以显示语法高亮，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;python</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">def sigmoid(self, input):</span><br><span class="line">    return 1.0 &#x2F; (1.0 + np.exp(-input))</span><br><span class="line">&#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
+<p>显示为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(self, input)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span> / (<span class="number">1.0</span> + np.exp(-input))</span><br></pre></td></tr></table></figure>
+<p>以下为常用的语言的语法关键字</p>
+<table>
+<thead>
+<tr>
+<th>语言</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C</td>
+<td>cpp, c</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>java</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>py, python</td>
+</tr>
+<tr>
+<td>Shell</td>
+<td>bash, shell</td>
+</tr>
+<tr>
+<td>C#</td>
+<td>csharp, c#</td>
+</tr>
+<tr>
+<td>CSS</td>
+<td>css</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>js, jscript, javascript</td>
+</tr>
+<tr>
+<td>XML</td>
+<td>xml , xhtml, xslt, html</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>php</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>sql</td>
+</tr>
+</tbody></table>
+<h1 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h1><p>&emsp;&emsp;markdown里有些字符代表特殊功能，比如 * 代表无序列表开始标志，如果只是想显示这些符号，而不使用符号的特殊功能，需要在符号前加一个 \ ，markdown里需要转义的字符如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>原始字符</th>
+<th>显示效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>反斜杠</td>
+<td>\\</td>
+<td>\</td>
+</tr>
+<tr>
+<td>反引号</td>
+<td>\`</td>
+<td>`</td>
+</tr>
+<tr>
+<td>星号</td>
+<td>\*</td>
+<td>*</td>
+</tr>
+<tr>
+<td>井号</td>
+<td>\#</td>
+<td>#</td>
+</tr>
+<tr>
+<td>加号</td>
+<td>\+</td>
+<td>+</td>
+</tr>
+<tr>
+<td>减号</td>
+<td>\-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>点</td>
+<td>\.</td>
+<td>.</td>
+</tr>
+<tr>
+<td>感叹号</td>
+<td>\!</td>
+<td>!</td>
+</tr>
+<tr>
+<td>大括号</td>
+<td>\{\}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>中括号</td>
+<td>\[\]</td>
+<td>[]</td>
+</tr>
+<tr>
+<td>小括号</td>
+<td>\(\)</td>
+<td>()</td>
+</tr>
+</tbody></table>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>&emsp;&emsp;部分markdown平台支持目录自动生成，比如gridea可以用<code>@[TOC]</code>来插入目录，Typora用<code>[TOC]</code>插入目录。如果平台不支持的话，可以使用mardown的编辑器来生成，或者使用上面提到的列表和内部链接自己做一个，当然这样比较麻烦，而且无法与标题自动同步。</p>
+<h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><p>markdown支持添加脚注，点击脚注后，会跳转到文档的底部的说明位置，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[^关键字]</span><br><span class="line">[^关键字]: 脚注说明内容</span><br></pre></td></tr></table></figure>
+<p>第一行代码添加了一个脚注，第二行代码对脚注进行了定义，如果对添加的脚注不进行定义的话，脚注无法显示。markdown在显示脚注的时候会按照顺序进行编号，下面是一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">文本[^第一个脚注]</span><br><span class="line">[^第一个脚注]: 这里是第一个脚注的说明。</span><br><span class="line"></span><br><span class="line">文本[^第二脚注]</span><br><span class="line">[^第二脚注]: 这里是第二个脚注的说明。</span><br></pre></td></tr></table></figure>
+<p>显示结果：<br>文本<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+<p>文本<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>markdown可以在一行上连用三个或者三个以上的星号、减号、或者下划线来表示分割线。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">***</span><br><span class="line">---</span><br><span class="line">___</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<hr>
+<hr>
+<hr>
+<h2 id="数学公式和画图"><a href="#数学公式和画图" class="headerlink" title="数学公式和画图"></a>数学公式和画图</h2><p>可以参考这个大佬的链接<a href="https://www.cnblogs.com/yalphait/articles/8685586.html" target="_blank" rel="noopener">https://www.cnblogs.com/yalphait/articles/8685586.html</a><br><br/></p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">这里是第一个脚注的说明。</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">这里是第二个脚注的说明。</span><a href="#fnref:2" rev="footnote"> ↩</a></li></ol></div></div>
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+	  <hr>
+      <div class="post-share">分享到：</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/markdown/" rel="tag"># markdown</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/acm/hdu-3085/" rel="prev" title="HDU-3085 Nightmare Ⅱ">
+                HDU-3085 Nightmare Ⅱ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: '6iCAxfaoBsA1LaiU36OQQVya-MdYXbMMI',
+        appKey: 'gVPQRrCwc64fycoMHuq9jfgG',
+        placeholder: '说点什么吧！ (*´∇｀*)',
+        avatar: 'mp',
+        pageSize: '' || 10,
+		meta: ['nick', 'mail', 'link'],
+
+		// 设置Bilibili表情包地址
+		emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+		// 表情title和图片映射
+		emojiMaps: {
+			"tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+			"tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+			"tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+			"tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+			"tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+			"tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+			"tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+			"tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+			"tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+			"tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+			"tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+			"tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+			"tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+			"tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+			"tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+			"tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+			"tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+			"tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+			"tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+			"tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+			"tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+			// ... 更多表情
+		},
+    });
+  </script>
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://api.ixiaowai.cn/mcapi/mcapi.php"
+                alt="stxw" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/stxw" target="_blank" title="GitHub" data-balloon="GitHub" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://wpa.qq.com/msgrd?v=3&uin=1845812298&site=qq&menu=yes" target="_blank" title="QQ" data-balloon="QQ" data-balloon-pos="up">
+                    
+                      <i class="fa fa-fw fa-qq"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+            
+
+          </nav>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown简介"><span class="nav-number">2.</span> <span class="nav-text">Markdown简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标题"><span class="nav-number">3.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字体"><span class="nav-number">4.</span> <span class="nav-text">字体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单字体"><span class="nav-number">4.1.</span> <span class="nav-text">简单字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义字体"><span class="nav-number">4.2.</span> <span class="nav-text">自定义字体</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#空格"><span class="nav-number">5.</span> <span class="nav-text">空格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#换行"><span class="nav-number">6.</span> <span class="nav-text">换行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用"><span class="nav-number">7.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片"><span class="nav-number">8.</span> <span class="nav-text">图片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单图片"><span class="nav-number">8.1.</span> <span class="nav-text">简单图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义图片"><span class="nav-number">8.2.</span> <span class="nav-text">自定义图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接"><span class="nav-number">9.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#外部链接"><span class="nav-number">9.1.</span> <span class="nav-text">外部链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部链接"><span class="nav-number">9.2.</span> <span class="nav-text">内部链接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表"><span class="nav-number">10.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无序列表"><span class="nav-number">10.1.</span> <span class="nav-text">无序列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序列表"><span class="nav-number">10.2.</span> <span class="nav-text">有序列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌套列表"><span class="nav-number">10.3.</span> <span class="nav-text">嵌套列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表格"><span class="nav-number">11.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">12.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码片段"><span class="nav-number">12.1.</span> <span class="nav-text">代码片段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码段落"><span class="nav-number">12.2.</span> <span class="nav-text">代码段落</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转义字符"><span class="nav-number">13.</span> <span class="nav-text">转义字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">14.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">14.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚注"><span class="nav-number">14.2.</span> <span class="nav-text">脚注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分割线"><span class="nav-number">14.3.</span> <span class="nav-text">分割线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学公式和画图"><span class="nav-number">14.4.</span> <span class="nav-text">数学公式和画图</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <!--<div class="footer-image"></div>-->
+      <div class="footer-inner">
+        <p>
+小破站在各种灾难中苟活了
+	<span id="since"></span>
+	<span class="my-face">o(╥﹏╥)o</span>
+	<a href="/sitemap.xml" target="_blank">RSS</a>
+</p>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数 <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量 <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+	
+		<div class="waifu">
+	<div class="waifu-tips"></div>
+	<canvas id="live2d" height="380" style="width:300px;" ></canvas>
+	<div class="waifu-tool">
+		<i class="fa fa-commenting" ></i>
+		<i class="fa fa-camera" ></i>
+		<i class="fa fa-chevron-down" ></i>
+	</div>
+</div>
+<div class="waifu-show">
+	<i class= "fa fa-chevron-up"></i>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/live2d.js"></script>
+<script>
+	loadlive2d('live2d', "https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/images/live2d_model/nepnep/index.json");
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/waifu.js"></script>
+
+	
+
+    
+
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/sagiri.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stxw/stxw.github.io/js/highlight_tool.js"></script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('2');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
