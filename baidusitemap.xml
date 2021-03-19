@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://stxw.ml/image_processing/lbp_feature/</loc>
+    <lastmod>2021-03-19</lastmod>
+  </url>  <url>
+    <loc>http://stxw.ml/live/new_bicycle_ATX830/</loc>
+    <lastmod>2021-03-16</lastmod>
+  </url>  <url>
     <loc>http://stxw.ml/live/assemble_computer/</loc>
-    <lastmod>2021-02-27</lastmod>
+    <lastmod>2021-03-16</lastmod>
+  </url>  <url>
+    <loc>http://stxw.ml/learn_note/shell_script_base/</loc>
+    <lastmod>2021-03-16</lastmod>
+  </url>  <url>
+    <loc>http://stxw.ml/papers/Segmentation_and_Enhancement_of_Latent_Fingerprints/</loc>
+    <lastmod>2021-03-16</lastmod>
+  </url>  <url>
+    <loc>http://stxw.ml/papers/Fingerprint_Minutiae_Matching/</loc>
+    <lastmod>2021-03-16</lastmod>
+  </url>  <url>
+    <loc>http://stxw.ml/papers/High-Performance_Large-Scale_Image_Recognition/</loc>
+    <lastmod>2021-03-16</lastmod>
   </url>  <url>
     <loc>http://stxw.ml/acm/hdu_4081/</loc>
     <lastmod>2021-02-27</lastmod>
@@ -65,15 +83,6 @@
     <lastmod>2021-02-27</lastmod>
   </url>  <url>
     <loc>http://stxw.ml/learn_note/markdown_base/</loc>
-    <lastmod>2021-02-27</lastmod>
-  </url>  <url>
-    <loc>http://stxw.ml/live/new_bicycle_ATX830/</loc>
-    <lastmod>2021-02-27</lastmod>
-  </url>  <url>
-    <loc>http://stxw.ml/learn_note/shell_script_base/</loc>
-    <lastmod>2021-02-27</lastmod>
-  </url>  <url>
-    <loc>http://stxw.ml/papers/Segmentation_and_Enhancement_of_Latent_Fingerprints/</loc>
     <lastmod>2021-02-27</lastmod>
   </url>  <url>
     <loc>http://stxw.ml/papers/End-to-End_Latent_Fingerprint_Search/</loc>
