@@ -17,7 +17,7 @@ mathjax: true
 # 原始的LBP
 &emsp;&emsp;最初的LBP算子通过定义一个3x3的窗口，以窗口内中心点的像素值为标准，对比窗口内另8个点像素值的大小，大于为1，小于为0。8个点形成一个二进制数字（通常转换为十进制表示）即为中心点的LBP特征值。详细计算如下图：
 
-![]("/images/image_processing/lbp_feature/fig_1.png")
+![](/images/image_processing/lbp_feature/fig_1.png)
 
 通过上面得到的LBP算子具有很多缺点，之后研究人员在LBP基础上进行不断改进。
 
@@ -115,7 +115,7 @@ f(x, y) \approx \left[\begin{matrix}
 $$
 
 几种不同半径不同采样点数量的LBP算子：
-![]("/images/image_processing/lbp_feature/fig_2.png")
+![](/images/image_processing/lbp_feature/fig_2.png)
 
 ```cpp
 /**
@@ -191,7 +191,7 @@ double bilinear_interpolation(cv::InputArray src, double x, double y)
 &emsp;&emsp;上面通过采取圆形邻域的计算，一定程度上削弱了尺度改变的影响。研究人员在上面的基础上进一步扩展，使具备旋转不变的特征。
 
 &emsp;&emsp;首先，在确定半径大小和采样点数目后，不断旋转圆形邻域内采样点的位置，得到一系列的LBP特征值，从这些LBP特征值中选择最小的值作为LBP中心像素点的LBP特征值，具体如下图：
-![]("/images/image_processing/lbp_feature/fig_3.png")
+![](/images/image_processing/lbp_feature/fig_3.png)
 
 &emsp;&emsp;通过不断旋转，取最小值，使具备旋转不变特性。
 
@@ -301,7 +301,7 @@ void uniform_pattern(cv::InputArray src, cv::OutputArray dst, int num_neighbor)
 &emsp;&emsp;MB-LBP特征，全称为Multiscale Block LBP,由中科院的研究人员研究发表，原理与HOG特征提取有相似之处，介绍MB-LBP仅用于了解，下面是原理介绍。
 
 &emsp;&emsp;首先将图像分为分为多个块，再将每个小块分成多个区域，每个区域的灰度值为该区域内灰度值的平均值。在一个块内，将中心区域的灰度值大小与周围区域的灰度值大小进行比较形成LBP特征值。如下图：
-![]("/images/image_processing/lbp_feature/fig_4.png")
+![](/images/image_processing/lbp_feature/fig_4.png)
 
 &emsp;&emsp;作者对得到的MB-LBP特征值同样进行均值编码。首先，对得到的特征值采用直方图进行表示，计算每一种特征值的数量，进行排序，将排序在前63为的特征值看作是统一模式类，其他的为混合模式类，共64类。
 
