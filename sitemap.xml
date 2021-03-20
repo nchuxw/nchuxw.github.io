@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://stxw.ml/learn_note/linux_arm_config/</loc>
+    
+    <lastmod>2021-03-20T15:53:58.272Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://stxw.ml/image_processing/lbp_feature/</loc>
     
     <lastmod>2021-03-19T11:36:56.068Z</lastmod>
