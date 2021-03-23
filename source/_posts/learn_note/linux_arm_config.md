@@ -165,7 +165,7 @@ Connection closed by foreign host.
 
 # 配置vscodium
 ## 安装ARM插件
-&emsp;&emsp;在vscodium插件商店里搜索`ARM`和`Cortex-Debug`，安装。
+&emsp;&emsp;在vscodium插件商店里搜索`ARM`和`Cortex-Debug`，安装。vscodium默认用的是插件商店是[open-vsx.org](https://open-vsx.org/)，下载比较慢，而且很多vscode库里的插件没有，改成vscode库的方法可以参考这里[传送门](https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions--marketplace)。
 ![](/images/learn_note/linux_arm_config/fig_8.png)
 
 ## 添加C++配置
