@@ -87,7 +87,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ![](/images/learn_note/linux_arm_config/fig_3.png)
 
 2. 配置GPIO：
-去官网上查[这块开发板的CAD文档](https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-c01_schematic.pdf)，在最后一页右下角找到了LED的部分，发现绿色的灯连的是PD12引脚，黄色的灯是PD13，红色的是PD14，蓝色的是PD15，这里我就试一下蓝色和红色的灯吧，那接下来配置PD14和PD15这两个引脚就好了。
+去官网上查[这块开发板的CAD文档](https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-c01_schematic.pdf)，在最后一页右下角找到了LED的部分，发现绿色的灯连的是PD12引脚，黄色的灯是PD13，红色的是PD14，蓝色的是PD15，这里就试一下蓝色和红色的灯吧，那接下来配置PD14和PD15这两个引脚就好了。
 ![](/images/learn_note/linux_arm_config/fig_4.png)回到STM32CubeMX里，在芯片图右边找到这两个引脚，鼠标单击，两个引脚都配置成`GPIO_Output`模式。
 ![](/images/learn_note/linux_arm_config/fig_5.png)然后点击左边的System Core->GPIO就可以看到这两个引脚的配置选项了，接下来把这两个引脚配置成输出高电平(High)，使用推挽输出(Pull-up)方式（不记得这个推挽输出是啥意思了），如下图：
 ![](/images/learn_note/linux_arm_config/fig_6.png)
@@ -99,3 +99,168 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ![](/images/learn_note/linux_arm_config/fig_7.png)
 
 &emsp;&emsp;如果是第一次生成代码，会弹出一个框，意思大概是要先下载一个F4的包才能生成代码，这个包默认是下载到home目录下的STM32Cube里，因为文件夹开头是不带"."隐藏的，对于我这个强迫症来说，受不了home目录下有莫名其妙的文件夹。幸好在Help->Updater Setting有个Repository Folder，可以指定包的保存路径（设置前要先点File保存关闭项目才能设置），把路径改成了CubeMX的安装路径，然后把home目录下的STM32Cube删除，舒服了(๑¯∀¯๑)！
+
+# 编译烧录
+## 编译
+&emsp;&emsp;在项目目录下`make`就好了。如果编译成功，项目会在目录下创建一个build文件夹，里面有与项目名字相同的.bin文件和.hex文件。
+```shell
+$ make
+```
+
+## 烧录
+&emsp;&emsp;把开发板连上电脑，然后开一个终端，用openocd连接开发板，命令如下：
+```shell
+$ openocd -f 烧录器配置文件 -f MCU配置文件
+```
+烧录器配置文件在`/usr/share/openocd/scripts/interface`目录下，MCU的配置文件在`/usr/share/openocd/scripts/target`目录下，根据开发板选择对应的配置文件。我的这块开发板的烧录器是stlink-v2.1，MCU是`STM32F407VGT6`，所以连接的命令和输出是酱紫的：
+```shell
+$ openocd -f /usr/share/openocd/scripts/interface/stlink-v2-1.cfg -f /usr/share/openocd/scripts/target/stm32f4x.cfg
+Open On-Chip Debugger 0.10.0
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 2000 kHz
+adapter_nsrst_delay: 100
+none separate
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+Info : clock speed 1800 kHz
+Info : STLINK v2 JTAG v25 API v2 SWIM v14 VID 0x0483 PID 0x374B
+Info : using stlink api v2
+Info : Target voltage: 2.890749
+Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints
+```
+
+&emsp;&emsp;连接成功后再开一个终端，用`telnet`连接本地的4444端口，与openocd通信。然后用`program 生成的hex文件路径`把程序烧录进开发板，如果出现`** Programming Finished **`，说明烧录成功。然后用`reset`命令重启开发板，这个时候应该就可以看到开发板的红灯和蓝灯亮了，最后用`exit`命令退出。
+```shell
+$ telnet localhost 4444   # 连接
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+Open On-Chip Debugger
+> program /home/stxw/code/stm32f4_led/build/stm32f4_led.hex  # 烧录
+Unable to match requested speed 2000 kHz, using 1800 kHz
+Unable to match requested speed 2000 kHz, using 1800 kHz
+adapter speed: 1800 kHz
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x08000f6c msp: 0x20020000
+Unable to match requested speed 8000 kHz, using 4000 kHz
+Unable to match requested speed 8000 kHz, using 4000 kHz
+adapter speed: 4000 kHz
+** Programming Started **
+auto erase enabled
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x20000046 msp: 0x20020000
+wrote 16384 bytes from file /home/stxw/code/stm32f4_led/build/stm32f4_led.hex in 0.616047s (25.972 KiB/s)
+** Programming Finished **  # 表示烧录成功
+> reset   # 重启开发板
+Unable to match requested speed 2000 kHz, using 1800 kHz
+Unable to match requested speed 2000 kHz, using 1800 kHz
+adapter speed: 1800 kHz
+> exit  # 退出
+Connection closed by foreign host.
+```
+
+# 配置vscodium
+## 安装ARM插件
+&emsp;&emsp;在vscodium插件商店里搜索`ARM`和`Cortex-Debug`，安装。vscodium默认用的是插件商店是[open-vsx.org](https://open-vsx.org/)，下载比较慢，而且很多vscode库里的插件没有，改成vscode库的方法可以参考这里[传送门](https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions--marketplace)。
+![](/images/learn_note/linux_arm_config/fig_8.png)
+
+## 添加C++配置
+&emsp;&emsp;用vscodium打开项目后会有很多红色的报错，可以添加C/C++的配置文件来去掉。按下快捷键`Ctrl+Shift+p`，输入C/C++，然后点击`Edit Configurrations(JSON)`
+![](/images/learn_note/linux_arm_config/fig_9.png)
+
+然后打开项目目录下的.vscode/c_cpp_properties.json文件，把`defines`配置成下面这样：
+```json
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER", /* 加上这两个 */
+                "STM32F407xx"     /* 这个要根据MCU型号来写 */
+            ],
+            "compilerPath": "/home/stxw/programs/gcc-arm-none-eabi/bin/arm-none-eabi-gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}
+```
+
+## 一键编译烧录调试
+&emsp;&emsp;在工程的.vscode目录下新建一个`tasks.json`和`launch.json`。
+&emsp;&emsp;`tasks.json`用来编译项目，在这里就是make一下，可以参考下面这样写。
+```json
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "task_build",
+            "command": "make",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
+```
+
+&emsp;&emsp;`launch.json`用来配置运行和调试，可以参考下面这样写。
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "task_build",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}.elf",
+            "request": "launch",
+			"type": "cortex-debug",
+			"svdFile": "STM32F407.svd",
+            "servertype": "openocd",
+            "configFiles":[
+                "/usr/share/openocd/scripts/interface/stlink-v2-1.cfg",
+                "/usr/share/openocd/scripts/target/stm32f4x.cfg"
+            ],
+            "armToolchainPath": "/home/stxw/programs/gcc-arm-none-eabi/bin"
+        }
+    ]
+}
+```
+`launch.json`里面有个`svdFile`配置项，用来指定svd文件，有这个文件能查看寄存器的值，不配置这个选项也能调试。可以在<https://github.com/posborne/cmsis-svd>找到，每个MCU都不同，下载对应的svd文件，放到项目目录下就好了。
+<br>
+
+接下来试一下能不能调试，在`Core/Src/main.c`的`main`函数里设置一个断点，然后按F5开始调试，然后就gg了....emmmm....
+![](/images/learn_note/linux_arm_config/99_error.gif)
+打开调试控制台，发现报了下面这个错误。
+> undefined/home/stxw/programs/gcc-arm-none-eabi/bin/arm-none-eabi-gdb: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
+
+意思是说找不到`libncurses.so.5`这个动态链接库，用`ldconfig`命令找了一下，发现只有`libncurses.so.6`，2333.....
+```shell
+$ ldconfig -p | grep libncurses.so
+	libncurses.so.6 (libc6,x86-64) => /lib/x86_64-linux-gnu/libncurses.so.6
+```
+用`apt-get`把`libncurses5`这个包装上以后就可以找到这个库了。
+```
+$ sudo apt-get install libncurses5
+$ ldconfig -p | grep libncurses.so
+	libncurses.so.6 (libc6,x86-64) => /lib/x86_64-linux-gnu/libncurses.so.6
+	libncurses.so.5 (libc6,x86-64) => /lib/x86_64-linux-gnu/libncurses.so.5
+```
+<br>
+
+再试一下能不能调试，这次没问题了，开心！<(\*￣▽￣\*)/
+![](/images/learn_note/linux_arm_config/fig_10.png)
+
+刚开始调试的时候会停在用来引导的汇编代码里面，继续按F5就运行到main函数里的断点了。
