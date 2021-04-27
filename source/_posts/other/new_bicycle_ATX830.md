@@ -1,7 +1,7 @@
 ---
 title: '新买的捷安特ATX830自行车'
 date: 2020-09-15 21:00:00
-categories: 生活
+categories: 其他
 tags: [自行车, 骑行]
 ---
 
@@ -27,22 +27,22 @@ tags: [自行车, 骑行]
 
 &emsp;&emsp;店里有3种颜色选择，橙色、黑色和灰色，个人不喜欢灰色，橙色也不是很喜欢的颜色，~~如果有粉色就好了~~，最终选了黑色，整体的样子就是下面这张图片的样子。
 
-![](/images/live/new_bicycle_ATX830/IMG_2892.JPG)
+![](/images/other/new_bicycle_ATX830/IMG_2892.JPG)
 
 # 车架
 &emsp;&emsp;型号是`GIANT ATX8 ALUXX铝合金车架`，这个是ALUXX是捷安特的铝合金车架成型技术，网上说是入门级的，更高端的还有ALUXX SL和ALUXX SLR，貌似比ALUXX更轻一点。整体感觉不重，但也不算轻，铝合金的车架要比碳纤维的稍微重一点，车架是内走线的，刹车线从车架里面传到变速器和后刹车。
 
-![](/images/live/new_bicycle_ATX830/IMG_2894.JPG)
+![](/images/other/new_bicycle_ATX830/IMG_2894.JPG)
 
 # 前叉
 &emsp;&emsp;这个前叉应该是前面减震的这个东西，这款是可以用线控器锁住减震的，店长说上坡的时候锁住会好骑一点。
 
-![](/images/live/new_bicycle_ATX830/IMG_2889.JPG)
+![](/images/other/new_bicycle_ATX830/IMG_2889.JPG)
 
 # 车把和车首竖杆
 &emsp;&emsp;都是铝合金的，车把有副把，如果路况比较好，不怎么刹车的话，可以用副把来骑，减轻手腕的酸痛。车把上左右各一个变速器和刹车器，还有锁住前叉的线控器和铃铛。
 
-![](/images/live/new_bicycle_ATX830/handlebar.JPG)
+![](/images/other/new_bicycle_ATX830/handlebar.JPG)
 
 # 刹车
 &emsp;&emsp;油压碟刹的，比机械碟刹的好一点，具体不太懂，店长说刹车的碟片来令片不能碰到油，会影响刹车的制动力。
@@ -50,12 +50,12 @@ tags: [自行车, 骑行]
 # 大齿盘
 &emsp;&emsp;锻造铝腿22/30/40T大齿盘。
 
-![](/images/live/new_bicycle_ATX830/IMG_2882.JPG)
+![](/images/other/new_bicycle_ATX830/IMG_2882.JPG)
 
 # 飞轮
 &emsp;&emsp;9速的，不太懂，店长说骑的时候多变速可以减轻链条对飞轮片的磨损，增加自行车的使用寿命。
 
-![](/images/live/new_bicycle_ATX830/IMG_2878.JPG)
+![](/images/other/new_bicycle_ATX830/IMG_2878.JPG)
 
 # 轮组
 &emsp;&emsp;轮组是自行车里比较重要的部分，我这款用的是`GAINT 双层铝合金轮圈 + GIANT 铝合金培林花鼓`，不太懂，对于我这种用来上下班的来说，应该算还不错吧。
@@ -66,12 +66,12 @@ tags: [自行车, 骑行]
 # 座垫和座垫杆
 &emsp;&emsp;座垫坐起来感觉还不错，座垫杆这里经过特殊处理，可以增加座垫杆和车架的摩擦，防止坐垫滑动。店长帮我在坐垫下面装了个尾灯，晚上骑行会安全一点。
 
-![](/images/live/new_bicycle_ATX830/IMG_2885.JPG)
+![](/images/other/new_bicycle_ATX830/IMG_2885.JPG)
 
 # 车锁
 &emsp;&emsp;这个车锁是比较有意思的，见下图，店长说这个锁防液压剪，价格￥338感觉有点小贵。
 
-![](/images/live/new_bicycle_ATX830/lock.jpg)
+![](/images/other/new_bicycle_ATX830/lock.jpg)
 
 # 总结
 &emsp;&emsp;我个人感觉这辆车整体来说还不错，从店里到家一个骑了7公里多的路，没感觉到累，骑起来挺轻松的，自行车和各种配件一共￥3282。可惜天气预报显示这周会一直下雨，没法骑这这辆自行车去上班了，还是要坐公交，去淘宝上买个~~浴衣~~雨衣吧。
